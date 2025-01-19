@@ -5,6 +5,12 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
+void changeWindowColor( SDL_Window* window, SDL_Surface* surface, Uint8 r, Uint8 g, Uint8 b ) {
+	Uint32 color = SDL_MapRGB( surface->format, r, g, b );
+	SDL_FillRect( surface, NULL, color);
+	SDL_UpdateWindowSurface( window );
+};
+
 int main( int argc, char* args[] ) {
 	//The window we'll be rendering to
 	SDL_Window* window = NULL;
@@ -18,7 +24,7 @@ int main( int argc, char* args[] ) {
 	}
 	else {
 		//Create window
-		window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		window = SDL_CreateWindow( "SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( window == NULL ) {
 			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
 		}
@@ -26,14 +32,30 @@ int main( int argc, char* args[] ) {
 			//Get window surface
 			screenSurface = SDL_GetWindowSurface( window );
 
-			//Fill the surface white
-			SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-			
-			//Update the surface
-			SDL_UpdateWindowSurface( window );
-            
-            //Hack to get window to stay up
-            SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
+			changeWindowColor(window, screenSurface, 255, 255, 255);
+
+            //Hack to get window to stay up like gameLoop
+            SDL_Event e; bool quit = false; while( quit == false ){ 
+				while( SDL_PollEvent( &e ) ){ 
+					if( e.type == SDL_QUIT ) quit = true;
+					// Checking whether a key is pressed
+					if( e.type == SDL_KEYDOWN ) {
+						switch (e.key.keysym.sym) {
+						case SDLK_w: changeWindowColor(window, screenSurface, 255, 255, 255);
+							break;
+						case SDLK_r: changeWindowColor(window, screenSurface, 255, 0, 0);
+							break;
+						case SDLK_g: changeWindowColor(window, screenSurface, 0, 255, 0);
+							break;
+						case SDLK_b: changeWindowColor(window, screenSurface, 0, 0, 255);
+							break;
+						
+						default:
+							break;
+						}
+					}
+				} 
+			}
 		}
 	}
 
