@@ -1,8 +1,71 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
+#include <string>
+#include <iostream>
 
-const int SCREEN_WIDTH = 640;	// window width
-const int SCREEN_HEIGHT = 480;	// window height
+class WindowManager {
+	private:	// set default value
+		SDL_Window* window = nullptr;
+		SDL_Surface* screenSurface = nullptr;
+		int SCREEN_WIDTH;
+		int SCREEN_HEIGHT;
+		std::string title;
+		Uint8 r, g, b;
+	
+	public:
+	// constructor
+	WindowManager(const std::string& title = "SDL Window", int width = 640, int height = 480)
+	: title(title), SCREEN_WIDTH(width), SCREEN_HEIGHT(height) {}
+
+	bool init() {
+		if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {	//Initialize SDL
+			printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+			return false;
+		}
+
+		window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		if( window == nullptr ) { 
+			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+			cleanup();
+			return false;
+		}
+
+		screenSurface = SDL_GetWindowSurface( window );
+		if( screenSurface == nullptr ) {
+			printf( "Surface could not be created! SDL_Error: %s\n", SDL_GetError() );
+			cleanup();
+			return false;
+		}
+
+		return true;
+	}
+
+	// get fields 
+	SDL_Window* getWindow() const { return window; }
+	SDL_Surface* getSurface() const { return screenSurface; }
+	int getWidth() const { return SCREEN_WIDTH; }
+	int getHeight() const { return SCREEN_HEIGHT; }
+
+	void setColor(Uint8 red, Uint8 green, Uint8 blue) {
+        r = red; g = green; b = blue;
+    }
+	void clearWindow() {
+        Uint32 color = SDL_MapRGB(screenSurface->format, r, g, b);
+        SDL_FillRect(screenSurface, NULL, color);
+    }
+
+	// clean up all for close program
+	void cleanup() {
+		if( window != nullptr ) {
+			SDL_DestroyWindow( window );
+			window = nullptr;
+		}
+		SDL_Quit();
+	}
+
+	// destructor
+	~WindowManager() { cleanup(); }
+};
 
 class GameState {
 	public:
@@ -13,17 +76,18 @@ class GameState {
 };
 
 class PlayState : public GameState {
-	private: Uint8 r, g, b;
-
-	public: PlayState() : r(255), g(255), b(255) {}
+	private:
+		WindowManager* windowManager;
+	public: 
+	PlayState(WindowManager* windowManager) : windowManager(windowManager) {}
 
 	void handleEvents( SDL_Event& e ) override {
 		if( e.type == SDL_KEYDOWN ) {	// Checking whether a key is pressed
 			switch ( e.key.keysym.sym ) {
-			case SDLK_w: r = 255; g = 255; b = 255; break;
-			case SDLK_r: r = 255; g = 0;   b = 0;   break;
-			case SDLK_g: r = 0;	  g = 255; b = 0;   break;
-			case SDLK_b: r = 0;	  g = 0;   b = 255; break;
+			case SDLK_c: windowManager->setColor( 0, 0, 0 ); break;
+			case SDLK_r: windowManager->setColor( 255, 0, 0 ); break;
+			case SDLK_g: windowManager->setColor( 0, 255, 0 ); break;
+			case SDLK_b: windowManager->setColor( 0, 0, 255 ); break;
 			
 			default: break;
 			}
@@ -33,65 +97,54 @@ class PlayState : public GameState {
     void update() override {}
 
     void render( SDL_Surface* surface ) override {
-		Uint32 color = SDL_MapRGB( surface->format, r, g, b );	// set color
-		SDL_FillRect( surface, NULL, color );
+		windowManager->clearWindow();
     }
 };
 
 int main( int argc, char* args[] ) {
-	SDL_Window* window = NULL;	//The window we'll be rendering to
-	SDL_Surface* screenSurface = NULL;	//The surface contained by the window
-
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {	//Initialize SDL
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+	WindowManager* windowManager = new WindowManager();
+	
+	if( !windowManager->init() ) {
+		std::cout << "Failed to initialize WindowManager" << std::endl;
 		return -1;
 	}
-	else {	//Create window
-		window = SDL_CreateWindow( "SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-		if( window == NULL ) {
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
-			SDL_Quit();
-			return -1;
-		}
-		else {
-			screenSurface = SDL_GetWindowSurface( window );	//Get window surface
+	else {
+		GameState* currentState = new PlayState(windowManager);
 
-			GameState* currentState = new PlayState();
+		SDL_Event e;	// Event
+		bool quit = false;	// flag for window stay displayed
+		Uint32 frameStart;
+		const int FPS = 60;
+		const int frameDelay = 1000 / FPS;
 
-            SDL_Event e;	// Event
-			bool quit = false;	// flag for window stay displayed
-			Uint32 frameStart;
-			const int FPS = 60;
-			const int frameDelay = 1000 / FPS;
-
-			while( quit == false ) {	// GameLoop
-				frameStart = SDL_GetTicks();
-				
-				// 1. Event handling
-				while( SDL_PollEvent( &e ) ) {	// check close window
-					if( e.type == SDL_QUIT ) quit = true;
-					currentState->handleEvents( e );
-				}
-
-				// 2. Logic update
-				currentState->update();
-
-				// 3. Rendering
-				currentState->render( screenSurface );
-				SDL_UpdateWindowSurface( window );
-
-				// 4. FPS manager
-				Uint32 frameTime = SDL_GetTicks() - frameStart;
-				if ( frameDelay > frameTime ) {
-					SDL_Delay( frameDelay - frameTime );
-				}
+		while( quit == false ) {	// GameLoop
+			frameStart = SDL_GetTicks();
+			
+			// 1. Event handling
+			while( SDL_PollEvent( &e ) ) {	// check close window
+				if( e.type == SDL_QUIT ) quit = true;
+				currentState->handleEvents( e );
 			}
-			delete currentState;
+
+			// 2. Logic update
+			currentState->update();
+
+			// 3. Rendering
+			currentState->render( windowManager->getSurface() );
+			SDL_UpdateWindowSurface( windowManager->getWindow() );
+
+			// 4. FPS manager
+			Uint32 frameTime = SDL_GetTicks() - frameStart;
+			if ( frameDelay > frameTime ) {
+				SDL_Delay( frameDelay - frameTime );
+			}
 		}
+		delete currentState;
+	
 	}
 
-	SDL_DestroyWindow( window );	//Destroy window
-	SDL_Quit();	//Quit SDL subsystems
+	windowManager->cleanup();
+	delete windowManager;
 
 	return 0;
 }
