@@ -3,45 +3,9 @@
 #include <string>
 #include <iostream>
 #include <memory>
+
 #include "WindowManager.h"
-
-class GameState {
-	public:
-		virtual void handleEvents( SDL_Event& e ) = 0;
-		virtual void update() = 0;
-		virtual void render() = 0;
-		virtual ~GameState() {}
-};
-
-class PlayState : public GameState {
-	private:
-		WindowManager* windowManager;
-	public: 
-	PlayState(WindowManager* windowManager) : windowManager(windowManager) {}
-
-	void handleEvents( SDL_Event& e ) override {
-		if( e.type == SDL_KEYDOWN ) {	// Checking whether a key is pressed
-			// switch ( e.key.keysym.sym ) {
-			// case SDLK_c: windowManager->setColor( 0, 0, 0 ); break;
-			// case SDLK_r: windowManager->setColor( 255, 0, 0 ); break;
-			// case SDLK_g: windowManager->setColor( 0, 255, 0 ); break;
-			// case SDLK_b: windowManager->setColor( 0, 0, 255 ); break;
-
-			// Эта механика была тестовая, для понимания работы заливки окна
-			// и сейча она не нужна, поэтому метод тоже удалил. 
-			// Оставил в комментарии для образка, как использовать ивенты.
-			
-			// default: break;
-			// }
-		}
-    }
-
-    void update() override {}
-
-    void render() override {
-		windowManager->clearWindow();
-    }
-};
+#include "GameState.h"
 
 int main( int argc, char* args[] ) {
 	WindowManager windowManager;
