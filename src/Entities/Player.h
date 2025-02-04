@@ -9,5 +9,6 @@ private:
 public:
     Player();
     void draw( SDL_Renderer* renderer );
+    void move_right();
     ~Player();
 };
