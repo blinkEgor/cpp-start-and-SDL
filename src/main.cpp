@@ -36,8 +36,8 @@ int main( int argc, char* args[] ) {
 			currentState->update();
 
 			// 3. Rendering
-			SDL_RenderPresent( windowManager.getRenderer() );
 			currentState->render();
+			SDL_RenderPresent( windowManager.getRenderer() );
 
 			// 4. FPS manager
 			Uint32 frameTime = SDL_GetTicks() - frameStart;

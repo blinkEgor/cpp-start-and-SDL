@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "../Entities/Player.h"
 
 PlayState::PlayState(WindowManager* windowManager) : windowManager(windowManager) {}
 
@@ -22,5 +23,7 @@ void PlayState::handleEvents( SDL_Event& e ) {
 void PlayState::update() {}
 
 void PlayState::render() {
+    Player player;
     windowManager->clearWindow();
+    player.draw( windowManager->getRenderer() );
 }
