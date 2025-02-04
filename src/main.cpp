@@ -4,8 +4,8 @@
 #include <iostream>
 #include <memory>
 
-#include "WindowManager.h"
-#include "GameState.h"
+#include "Graphics/WindowManager.h"
+#include "Game/GameState.h"
 
 int main( int argc, char* args[] ) {
 	WindowManager windowManager;

@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <stdio.h>
-#include "WindowManager.h"
+#include "../Graphics/WindowManager.h"
 
 class GameState {
 	public:
