@@ -12,13 +12,20 @@ void PlayState::handleEvents( SDL_Event& e ) {
         
         default: break;
         }
+    } else if ( e.type == SDL_KEYUP ) {
+        switch ( e.key.keysym.sym ) {
+        case SDLK_w:
+        case SDLK_s: player.update_velocity_y(); break; // reset value
+        case SDLK_a:
+        case SDLK_d: player.update_velocity_x(); break; // reset value
+        
+        default: break;
+        }
     }
 }
 
 void PlayState::update() {
-    player.move();
-    player.update_velocity_x(); // reset value
-    player.update_velocity_y(); // reset value
+    player.move( windowManager->getWidth(), windowManager->getHeight() );
 }
 
 void PlayState::render() {
