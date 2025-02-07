@@ -9,16 +9,16 @@ void Player::draw( SDL_Renderer* renderer ) {
     SDL_RenderFillRect( renderer, &rect ); // draw
 }
 
-// Moving Player to right side
-void Player::move_right() { x += speed; } // update X position
+// Moving Player
+void Player::move() { 
+    x += velocity_x;
+    y += velocity_y;
+}
 
-// Moving Player to left side
-void Player::move_left() { x -= speed; } // update X position
+// Настраивает значение для позиции во время движения по горизонтали
+void Player::update_velocity_x( int _x ) { velocity_x = speed * _x; }
 
-// Moving Player to up side
-void Player::move_up() { y -= speed; } // update Y position
-
-// Moving Player to down side
-void Player::move_down() { y += speed; } // update Y position
+// Настраивает значение для позиции во время движения по вертикали
+void Player::update_velocity_y( int _y ) { velocity_y = speed * _y; }
 
 Player::~Player() {}
