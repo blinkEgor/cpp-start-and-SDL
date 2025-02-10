@@ -3,16 +3,22 @@
 Player::Player() {}
 
 // Drawing Player
+// set color
+// update rect to Player will corret drawing
+// draw
 void Player::draw( SDL_Renderer* renderer ) {
-    SDL_SetRenderDrawColor( renderer, r, g, b, a ); // set color
-    SDL_Rect rect = { x, y, w, h }; // update rect to Player will corret drawing
-    SDL_RenderFillRect( renderer, &rect ); // draw
+    SDL_SetRenderDrawColor( renderer, r, g, b, a ); 
+    SDL_Rect rect = { x, y, w, h }; 
+    SDL_RenderFillRect( renderer, &rect ); 
 }
 
 // Moving Player
+// update vertical position
+// update horisontal position
+// check for collision with window borders
 void Player::move( int width, int height ) { 
-    x += velocity_x; // update vertical position
-    y += velocity_y; // update horisontal position
+    x += velocity_x; 
+    y += velocity_y; 
 
     // check for collision with window borders (можно вынести в отдельный метод)
     if ( x + w > width ) x = width - w;
@@ -22,9 +28,11 @@ void Player::move( int width, int height ) {
 }
 
 // Настраивает значение для позиции во время движения по горизонтали
-void Player::update_velocity_x( int _x ) { velocity_x = speed * _x; } // default = 0
+// default = 0
+void Player::update_velocity_x( int _x ) { velocity_x = speed * _x; } 
 
 // Настраивает значение для позиции во время движения по вертикали
-void Player::update_velocity_y( int _y ) { velocity_y = speed * _y; } // default = 0
+// default = 0
+void Player::update_velocity_y( int _y ) { velocity_y = speed * _y; } 
 
 Player::~Player() {}

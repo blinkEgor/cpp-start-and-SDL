@@ -1,7 +1,7 @@
 #include "WindowManager.h"
 
 // constructor
-WindowManager::WindowManager(const std::string& title/* = "SDL Window"*/, int width/* = 640*/, int height/* = 480*/)
+WindowManager::WindowManager(const std::string& title, int width, int height)
 : title(title), SCREEN_WIDTH(width), SCREEN_HEIGHT(height) {}
 
 bool WindowManager::init() {
@@ -32,7 +32,7 @@ SDL_Renderer* WindowManager::getRenderer() const { return renderer; }
 int WindowManager::getWidth() const { return SCREEN_WIDTH; }
 int WindowManager::getHeight() const { return SCREEN_HEIGHT; }
 
-void WindowManager::setColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha/* = 255*/) {
+void WindowManager::setColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) {
 	r = red; g = green; b = blue; a = alpha;
 }
 

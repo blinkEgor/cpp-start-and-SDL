@@ -6,6 +6,7 @@
 
 #include "Graphics/WindowManager.h"
 #include "Game/GameState.h"
+#include "Game/GameManager.h"
 
 int main( int argc, char* args[] ) {
 	WindowManager windowManager;
@@ -15,7 +16,9 @@ int main( int argc, char* args[] ) {
 		return -1;
 	}
 	else {
-		std::unique_ptr<GameState> currentState = std::make_unique<PlayState>(&windowManager);
+		std::unique_ptr<GameManager> gameManager = std::make_unique<GameManager>(&windowManager);
+		gameManager->setNextState( std::make_unique<PlayState>(&windowManager) );
+		gameManager->changeState();
 
 		SDL_Event e;	// Event
 		bool quit = false;	// flag for window stay displayed
@@ -29,14 +32,14 @@ int main( int argc, char* args[] ) {
 			// 1. Event handling
 			while( SDL_PollEvent( &e ) ) {	// check close window
 				if( e.type == SDL_QUIT ) quit = true;
-				currentState->handleEvents( e );
+				gameManager->getCurrentState()->handleEvents( e );
 			}
 
 			// 2. Logic update
-			currentState->update();
+			gameManager->getCurrentState()->update();
 
 			// 3. Rendering
-			currentState->render();
+			gameManager->getCurrentState()->render();
 			SDL_RenderPresent( windowManager.getRenderer() );
 
 			// 4. FPS manager
