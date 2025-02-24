@@ -60,13 +60,16 @@ void WindowManager::cleanup() {
 	if( renderer != nullptr ) {
 		SDL_DestroyRenderer( renderer );
 		renderer = nullptr;
+		logError( "Renderer successfully destroyed" );
 	}
 
 	if( window != nullptr ) {
 		SDL_DestroyWindow( window );
 		window = nullptr;
+		logError( "Window successfully destroyed" );
 	}
 	SDL_Quit();
+	logError( "SDL successfully quit" );
 }
 
 // destructor

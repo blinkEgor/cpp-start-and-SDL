@@ -1,3 +1,16 @@
 [2025-02-24 14:55:48] SDL initialization: successful
 [2025-02-24 14:55:48] Window initialization: successful
 [2025-02-24 14:55:48] Renderer initialization: successful
+[2025-02-24 15:18:59] SDL initialization: successful
+[2025-02-24 15:18:59] Window initialization: successful
+[2025-02-24 15:18:59] Renderer initialization: successful
+[2025-02-24 15:19:14] Renderer successfully destroyed
+[2025-02-24 15:19:14] Window successfully destroyed
+[2025-02-24 15:19:14] SDL successfully quit
+[2025-02-24 15:19:14] SDL successfully quit
+[2025-02-24 15:28:12] SDL initialization: successful
+[2025-02-24 15:28:12] Window initialization: successful
+[2025-02-24 15:28:12] Renderer initialization: successful
+[2025-02-24 15:28:27] Renderer successfully destroyed
+[2025-02-24 15:28:27] Window successfully destroyed
+[2025-02-24 15:28:27] SDL successfully quit
