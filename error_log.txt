@@ -1,0 +1,3 @@
+[2025-02-24 14:55:48] SDL initialization: successful
+[2025-02-24 14:55:48] Window initialization: successful
+[2025-02-24 14:55:48] Renderer initialization: successful

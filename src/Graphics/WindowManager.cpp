@@ -9,21 +9,27 @@ WindowManager::WindowManager(const std::string& title, int width, int height)
 // initialize Renderer
 bool WindowManager::init() {
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+		logError( "SDL could not initialize! SDL_Error: " + std::string( SDL_GetError() ) );
 		return false;
+	} else {
+		logError( "SDL initialization: successful" );
 	}
 
 	window = SDL_CreateWindow( title.c_str(), W_POS_X, W_POS_Y, SCREEN_WIDTH, SCREEN_HEIGHT, W_FLAGS );
-	if( window == nullptr ) { 
-		printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+	if( window == nullptr ) {
+		logError( "Window could not be created! SDL_Error: " + std::string( SDL_GetError() ) );
 		cleanup();
 		return false;
+	} else {
+		logError( "Window initialization: successful" );
 	}
 
 	renderer = SDL_CreateRenderer( window, D_INDEX, R_FLAGS );
 	if( renderer == nullptr ) {
-		printf( "Renderer could not be created! SDL_Error: %s\n", SDL_GetError() );
+		logError( "Renderer could not be created! SDL_Error: " + std::string( SDL_GetError() ) );
 		return false;
+	} else {
+		logError( "Renderer initialization: successful" );
 	}
 
 	return true;

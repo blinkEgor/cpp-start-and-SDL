@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <stdio.h>
-#include <string>
+#include <iostream>
+#include "../Utils/LogError.h"
 
 class WindowManager {
 private:
