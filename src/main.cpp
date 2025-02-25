@@ -8,7 +8,7 @@
 #include "Game/GameState.h"
 #include "Game/GameManager.h"
 
-int main( int argc, char* args[] ) {
+int main( int /*argc*/, char** /*args[]*/ ) {
 	WindowManager windowManager;
 	
 	if( !windowManager.init() ) {
