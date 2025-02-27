@@ -9,7 +9,7 @@
 #include "Game/GameManager.h"
 
 int main( int /*argc*/, char** /*args[]*/ ) {
-	WindowManager windowManager;
+	WindowManager windowManager( "Snake", 32*24+32, 32*16+32 );
 	
 	if( !windowManager.init() ) {
 		std::cout << "Failed to initialize WindowManager" << std::endl;

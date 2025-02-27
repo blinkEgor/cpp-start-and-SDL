@@ -38,4 +38,5 @@ run: $(TARGET)
 
 # Очистка
 clean:
-	rm -f $(OBJ_DIR) $(TARGET)
+	rm -f $(TARGET)
+	rm -rf $(OBJ_DIR)
