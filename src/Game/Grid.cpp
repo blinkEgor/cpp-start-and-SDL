@@ -46,4 +46,8 @@ void Grid::printGrid() {
     std::cout << std::endl;
 }
 
+int Grid::getCellSize() const { return cell_size; }
+
+int Grid::getGridBorder() const { return grid_border; }
+
 Grid::~Grid() {}

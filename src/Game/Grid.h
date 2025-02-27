@@ -20,5 +20,7 @@ public:
     Grid();
     void drawGrid( SDL_Renderer* renderer );
     void printGrid();
+    int getCellSize() const;
+    int getGridBorder() const;
     ~Grid();
 };
