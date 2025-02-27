@@ -3,7 +3,6 @@
 #include <SDL2/SDL.h>
 #include <memory>
 #include "../Graphics/WindowManager.h"
-#include "../Entities/Player.h"
 
 class GameState {
 public:
@@ -17,7 +16,6 @@ class PlayState : public GameState {
 private:
 	WindowManager* windowManager;
 	enum { UP = -1, DOWN = 1, LEFT = -1, RIGHT = 1, };
-	Player player;
 public: 
 	PlayState(WindowManager* windowManager);
 	
