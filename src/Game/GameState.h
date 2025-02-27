@@ -4,6 +4,7 @@
 #include <memory>
 #include "../Graphics/WindowManager.h"
 #include "Grid.h"
+#include "../Entities/Snake.h"
 
 class GameState {
 public:
@@ -17,6 +18,7 @@ class PlayState : public GameState {
 private:
 	WindowManager* windowManager;
 	Grid grid;
+	Head head;
 
 public: 
 	PlayState( WindowManager* windowManager );
