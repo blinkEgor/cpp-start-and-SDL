@@ -13,14 +13,37 @@ void Grid::drawGrid( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 50, 50, 50, 255 ); // Цвет сетки
 
     // Отрисовка вертикальных линий
-    for (int x = grid_border; x <= grid_cols_size + cell_size - grid_border; x += cell_size) {
-        SDL_RenderDrawLine(renderer, x, grid_border, x, grid_rows_size + cell_size - grid_border);
+    for ( int x = grid_border; x <= grid_cols_size + cell_size - grid_border; x += cell_size ) {
+        SDL_RenderDrawLine( renderer, x, grid_border, x, grid_rows_size + cell_size - grid_border );
     }
 
     // Отрисовка горизонтальных линий
-    for (int y = grid_border; y <= grid_rows_size + cell_size - grid_border; y += cell_size) {
-        SDL_RenderDrawLine(renderer, grid_border, y, grid_cols_size + cell_size - grid_border, y);
+    for ( int y = grid_border; y <= grid_rows_size + cell_size - grid_border; y += cell_size ) {
+        SDL_RenderDrawLine( renderer, grid_border, y, grid_cols_size + cell_size - grid_border, y );
     }
+}
+
+void Grid::printGrid() {
+    for (int i = 0; i < cell_rows; i++) {
+        std::cout << "+";
+        for (int j = 0; j < cell_cols; j++) {
+            std::cout << "---+";
+        }
+        std::cout << std::endl;
+
+        std::cout << "| ";
+        for (int j = 0; j < cell_cols; j++) {
+            std::cout << grid[i][j] << " | ";
+        }
+        std::cout << std::endl;
+    }
+
+    // Нижняя граница таблицы
+    std::cout << "+";
+    for (int j = 0; j < cell_cols; j++) {
+        std::cout << "---+";
+    }
+    std::cout << std::endl;
 }
 
 Grid::~Grid() {}

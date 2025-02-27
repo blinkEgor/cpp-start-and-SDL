@@ -19,5 +19,6 @@ private:
 public:
     Grid();
     void drawGrid( SDL_Renderer* renderer );
+    void printGrid();
     ~Grid();
 };
