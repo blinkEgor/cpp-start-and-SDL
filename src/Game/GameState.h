@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <memory>
 #include "../Graphics/WindowManager.h"
+#include "Grid.h"
 
 class GameState {
 public:
@@ -15,9 +16,10 @@ public:
 class PlayState : public GameState {
 private:
 	WindowManager* windowManager;
-	enum { UP = -1, DOWN = 1, LEFT = -1, RIGHT = 1, };
+	Grid grid;
+
 public: 
-	PlayState(WindowManager* windowManager);
+	PlayState( WindowManager* windowManager );
 	
     void handleEvents( SDL_Event& e );
     void update();

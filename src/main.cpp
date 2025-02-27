@@ -16,8 +16,8 @@ int main( int /*argc*/, char** /*args[]*/ ) {
 		return -1;
 	}
 	else {
-		std::unique_ptr<GameManager> gameManager = std::make_unique<GameManager>(&windowManager);
-		gameManager->setNextState( std::make_unique<PlayState>(&windowManager) );
+		std::unique_ptr<GameManager> gameManager = std::make_unique<GameManager>( &windowManager );
+		gameManager->setNextState( std::make_unique<PlayState>( &windowManager ) );
 		gameManager->changeState();
 
 		SDL_Event e;	// Event

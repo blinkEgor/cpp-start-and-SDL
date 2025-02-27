@@ -12,5 +12,5 @@ void PlayState::update() {
 
 void PlayState::render() {
     windowManager->clearWindow();
-    
+    grid.drawGrid( windowManager->getRenderer() );
 }
