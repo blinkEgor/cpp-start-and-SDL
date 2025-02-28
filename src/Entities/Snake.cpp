@@ -10,8 +10,11 @@ Snake::Snake( Grid* grid, int start_row, int start_col ) :
     segments.push_back( { start_row, start_col } );
 }
 
-// Движение змейки
-// Двигаемся только через moveDelay мс
+// Перемещает змейку в текущем направлении через заданные интервалы времени (moveDelay).
+// - Проверяет, прошло ли достаточно времени с последнего перемещения.
+// - Вычисляет новую позицию головы змейки.
+// - Проверяет, не выходит ли новая позиция за границы сетки.
+// - Если движение возможно, добавляет новую голову и удаляет хвост, имитируя движение вперёд.
 void Snake::move() {
     Uint32 currentTime = SDL_GetTicks();
     if ( currentTime - lastMoveTime < moveDelay ) return;
@@ -20,7 +23,6 @@ void Snake::move() {
     int newRow = segments.front().first + dy;
     int newCol = segments.front().second + dx;
 
-    // Проверка выхода за границы
     if ( newRow < 0 || newRow >= grid->getCellRows() || newCol < 0 || newCol >= grid->getCellCols() ) return;
 
     segments.push_front({ newRow, newCol });
@@ -29,6 +31,10 @@ void Snake::move() {
 
 void Snake::grow() {}
 
+// Отрисовывает змейку на экране, заполняя её сегменты зелёным цветом.
+// - Устанавливает цвет рисования (зелёный).
+// - Проходит по всем сегментам змейки, рассчитывая их положение в пикселях с учётом отступа сетки.
+// - Рисует каждый сегмент в виде квадрата, соответствующего размеру клетки.
 void Snake::draw( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 ); // Цвет змейки: зелёный
     for ( auto& segment : segments ) {
@@ -40,10 +46,11 @@ void Snake::draw( SDL_Renderer* renderer ) {
     }
 }
 
-// Здаём направление
-// Запрет разворота на 180 градусов
+// Устанавливает новое направление движения змейки.  
+// - Запрещает разворот на 180 градусов (змейка не может двигаться в обратном направлении).  
+// - Обновляет значения dx и dy, задавая новое направление.
 void Snake::setDirection(int newDx, int newDy) {
-    if (newDx == -dx && newDy == -dy) return;
+    if (newDx == -dx && newDy == -dy) return; // Запрет разворота на 180 градусов
     dx = newDx;
     dy = newDy;
 }

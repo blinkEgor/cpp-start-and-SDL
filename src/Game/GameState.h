@@ -5,6 +5,7 @@
 #include "../Graphics/WindowManager.h"
 #include "Grid.h"
 #include "../Entities/Snake.h"
+#include "../Entities/Food.h"
 
 class GameState {
 public:
@@ -19,6 +20,7 @@ private:
 	WindowManager* windowManager;
 	Grid grid;
 	Snake snake;
+	Food food;
 
 public: 
 	PlayState( WindowManager* windowManager );
