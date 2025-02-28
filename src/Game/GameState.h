@@ -18,7 +18,7 @@ class PlayState : public GameState {
 private:
 	WindowManager* windowManager;
 	Grid grid;
-	Head head;
+	Snake snake;
 
 public: 
 	PlayState( WindowManager* windowManager );

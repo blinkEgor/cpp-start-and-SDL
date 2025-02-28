@@ -1,34 +1,21 @@
 #pragma once
 #include <iostream>
+#include <deque>
 #include <SDL2/SDL.h>
 #include "../Game/Grid.h"
 
 class Snake {
-public:
-    virtual void draw( SDL_Renderer* renderer ) = 0;
-    virtual void updatePosition() = 0;
-    virtual void move() = 0;
-	virtual ~Snake() {}
-};
-
-class Head : public Snake {
 private:
-    Uint8 r = 255, g = 255, b = 255, a = 255;
-    SDL_Rect rect = { 16, 16, 32, 32 };
-    
+    std::deque<std::pair<int, int>> segments;
+    Grid* grid;
+    Uint32 lastMoveTime;  // Время последнего хода змейки
+    int moveDelay;        // Задержка между ходами (мс)
+    int dx, dy;           // Текущее направление движения
 public:
-    Head();
-    void draw( SDL_Renderer* renderer );
-    void updatePosition();
+    Snake( Grid* grid, int start_row, int start_col );
     void move();
-    void setPosition( int x, int y, int border );
-    void setSize( int w, int h );
-    ~Head();
-};
-
-class Body : public Snake {
-private:
-
-public:
-
+    void grow();
+    void draw( SDL_Renderer* renderer );
+    void setDirection( int newDx, int newDy );
+    ~Snake();
 };

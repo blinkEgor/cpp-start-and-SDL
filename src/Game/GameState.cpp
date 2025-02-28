@@ -3,30 +3,26 @@
 PlayState::PlayState( WindowManager* windowManager ) : 
     windowManager(windowManager),
     grid(),
-    head() 
-{
-    int index_col_of_cell = 2;
-    int index_row_of_cell = 5;
-    head.setPosition( grid.getCellSize() * index_col_of_cell, grid.getCellSize() * index_row_of_cell, grid.getGridBorder() );
-    head.setSize( grid.getCellSize(), grid.getCellSize() );
-}
+    snake( &grid, 5, 5 )
+{}
 
 void PlayState::handleEvents( SDL_Event& e ) {
-    // if( e.type == SDL_KEYDOWN ) {
-    //     switch ( e.key.keysym.sym ) {
-    //     case SDLK_g: grid.printGrid(); break;
-
-    //     default: break;
-    //     }
-    // }
+    if (e.type == SDL_KEYDOWN) { // Теперь ловим нажатие (а не отпускание)
+        switch (e.key.keysym.sym) {
+            case SDLK_w: snake.setDirection(0, -1); break;
+            case SDLK_s: snake.setDirection(0, 1);  break;
+            case SDLK_a: snake.setDirection(-1, 0); break;
+            case SDLK_d: snake.setDirection(1, 0);  break;
+        }
+    }
 }
 
 void PlayState::update() {
-
+    snake.move();
 }
 
 void PlayState::render() {
     windowManager->clearWindow();
     grid.drawGrid( windowManager->getRenderer() );
-    head.draw( windowManager->getRenderer() );
+    snake.draw( windowManager->getRenderer() );
 }

@@ -22,5 +22,7 @@ public:
     void printGrid();
     int getCellSize() const;
     int getGridBorder() const;
+    int getCellRows() const;
+    int getCellCols() const;
     ~Grid();
 };
