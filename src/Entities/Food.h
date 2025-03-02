@@ -11,5 +11,7 @@ public:
     Food( Grid* grid );
     void respawnFood(); // Перемещает еду в случайную позицию
     void draw( SDL_Renderer* renderer ); // Отрисовка еды
+    int getFoodRow() const;
+    int getFoodCol() const;
     ~Food();
 };

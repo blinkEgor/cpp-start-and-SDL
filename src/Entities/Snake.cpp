@@ -22,8 +22,8 @@ void Snake::move() {
     int rows = grid->getCellRows();
     int cols = grid->getCellCols();
 
-    int newRow = (segments.front().first + dy + rows) % rows;
-    int newCol = (segments.front().second + dx + cols) % cols;
+    int newRow = ( segments.front().first + dy + rows ) % rows;
+    int newCol = ( segments.front().second + dx + cols ) % cols;
 
     segments.push_front({ newRow, newCol });
     segments.pop_back();
