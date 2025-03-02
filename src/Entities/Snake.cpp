@@ -1,11 +1,13 @@
 #include "Snake.h"
 
-Snake::Snake( Grid* grid, int start_row, int start_col ) : 
+Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) : 
     grid( grid ), 
+    food( food ), 
     lastMoveTime( 0 ), 
     moveDelay( 200 ), 
     dx( 0 ), 
-    dy( 0 )
+    dy( 0 ),
+    is_eating( false )
 {
     segments.push_back( { start_row, start_col } );
 }
@@ -26,10 +28,21 @@ void Snake::move() {
     int newCol = ( segments.front().second + dx + cols ) % cols;
 
     segments.push_front({ newRow, newCol });
-    segments.pop_back();
+    if ( !is_eating ) { 
+        segments.pop_back();
+    }
+    is_eating = false;
 }
 
-void Snake::grow() {}
+// Проверяет, находится ли голова змейки на позиции еды ( съела ли змейка еду ).
+// - Если змейка достигла позиции еды, активирует is_eating и вызывает respawnFood() ( Перемещает еду в новую случайную позицию )
+// - Флаг is_eating сообщит move(), что не нужно убирать хвост после следующего движения
+void Snake::grow() {
+    if ( segments.front().first == food->getFoodRow() && segments.front().second == food->getFoodCol() ) {
+        is_eating = true;
+        food->respawnFood();
+    }
+}
 
 // Отрисовывает змейку на экране, заполняя её сегменты зелёным цветом.
 // - Устанавливает цвет рисования (зелёный).

@@ -3,7 +3,7 @@
 PlayState::PlayState( WindowManager* windowManager ) : 
     windowManager(windowManager),
     grid(),
-    snake( &grid, 5, 5 ),
+    snake( &grid, &food, 5, 5 ),
     food( &grid )
 {}
 
@@ -20,6 +20,7 @@ void PlayState::handleEvents( SDL_Event& e ) {
 
 void PlayState::update() {
     snake.move();
+    snake.grow();
 }
 
 void PlayState::render() {
