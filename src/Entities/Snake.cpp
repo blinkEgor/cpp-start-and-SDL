@@ -12,18 +12,18 @@ Snake::Snake( Grid* grid, int start_row, int start_col ) :
 
 // Перемещает змейку в текущем направлении через заданные интервалы времени (moveDelay).
 // - Проверяет, прошло ли достаточно времени с последнего перемещения.
-// - Вычисляет новую позицию головы змейки.
-// - Проверяет, не выходит ли новая позиция за границы сетки.
-// - Если движение возможно, добавляет новую голову и удаляет хвост, имитируя движение вперёд.
+// - Вычисляет новую позицию головы, учитывая переход через границы сетки.
+// - Обновляет положение змейки, добавляя новую голову и удаляя хвост.
 void Snake::move() {
     Uint32 currentTime = SDL_GetTicks();
     if ( currentTime - lastMoveTime < moveDelay ) return;
     lastMoveTime = currentTime;
 
-    int newRow = segments.front().first + dy;
-    int newCol = segments.front().second + dx;
+    int rows = grid->getCellRows();
+    int cols = grid->getCellCols();
 
-    if ( newRow < 0 || newRow >= grid->getCellRows() || newCol < 0 || newCol >= grid->getCellCols() ) return;
+    int newRow = (segments.front().first + dy + rows) % rows;
+    int newCol = (segments.front().second + dx + cols) % cols;
 
     segments.push_front({ newRow, newCol });
     segments.pop_back();
