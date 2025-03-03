@@ -1,11 +1,12 @@
 #include "GameManager.h"
 
-GameManager::GameManager( WindowManager* windowManager ) 
-    : windowManager(windowManager),
-      playState(std::make_unique<PlayState>(windowManager)) {}
+GameManager::GameManager( WindowManager* windowManager ) : 
+    windowManager( windowManager ),
+    playState( std::make_unique<PlayState>( windowManager ) )
+{}
 
 void GameManager::setNextState( std::unique_ptr<GameState> newState ) {
-    nextState = std::move(newState);
+    nextState = std::move( newState );
 }
 
 void GameManager::changeState() {

@@ -15,6 +15,7 @@ public:
 	virtual ~GameState() {}
 };
 
+// __ PlayState ____________________________________________________________
 class PlayState : public GameState {
 private:
 	WindowManager* windowManager;
@@ -26,6 +27,19 @@ public:
 	PlayState( WindowManager* windowManager );
 	
     void handleEvents( SDL_Event& e );
+    void update();
+    void render();
+};
+
+// __ StartMenuState _______________________________________________________
+class StartMenuState : public GameState {
+private:
+	WindowManager* windowManager;
+
+public:
+	StartMenuState( WindowManager* windowManager );
+
+	void handleEvents( SDL_Event& e );
     void update();
     void render();
 };

@@ -1,14 +1,15 @@
 #include "GameState.h"
 
+// __ PlayState ____________________________________________________________
 PlayState::PlayState( WindowManager* windowManager ) : 
-    windowManager(windowManager),
+    windowManager( windowManager ),
     grid(),
     snake( &grid, &food, 5, 5 ),
     food( &grid )
 {}
 
 void PlayState::handleEvents( SDL_Event& e ) {
-    if (e.type == SDL_KEYDOWN) { // Теперь ловим нажатие (а не отпускание)
+    if (e.type == SDL_KEYDOWN) { // Ловим нажатие
         switch (e.key.keysym.sym) {
             case SDLK_w: snake.setDirection(0, -1); break;
             case SDLK_s: snake.setDirection(0, 1);  break;
@@ -28,4 +29,21 @@ void PlayState::render() {
     grid.drawGrid( windowManager->getRenderer() );
     food.draw( windowManager->getRenderer() );
     snake.draw( windowManager->getRenderer() );
+}
+
+// __ StartMenuState _______________________________________________________
+StartMenuState::StartMenuState( WindowManager* windowManager ) : 
+    windowManager( windowManager )
+{}
+
+void StartMenuState::handleEvents( SDL_Event& e ) {
+
+}
+
+void StartMenuState::update() {
+
+}
+
+void StartMenuState::render() {
+    windowManager->clearWindow();
 }
