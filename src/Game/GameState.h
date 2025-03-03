@@ -2,10 +2,14 @@
 
 #include <SDL2/SDL.h>
 #include <memory>
+
 #include "../Graphics/WindowManager.h"
+
 #include "Grid.h"
 #include "../Entities/Snake.h"
 #include "../Entities/Food.h"
+
+#include "../UI/StartMenu.h"
 
 class GameState {
 public:
@@ -35,6 +39,7 @@ public:
 class StartMenuState : public GameState {
 private:
 	WindowManager* windowManager;
+	StartMenu startMenu;
 
 public:
 	StartMenuState( WindowManager* windowManager );
