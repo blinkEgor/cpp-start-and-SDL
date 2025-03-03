@@ -12,7 +12,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 # Исходные файлы
-SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp $(SRC_DIR)/Graphics/*.cpp $(SRC_DIR)/Game/*.cpp $(SRC_DIR)/Utils/*.cpp $(SRC_DIR)/Entities/*.cpp)
+SRC_FILES = $(wildcard $(SRC_DIR)/Graphics/*.cpp $(SRC_DIR)/Utils/*.cpp $(SRC_DIR)/Game/*.cpp $(SRC_DIR)/UI/*.cpp $(SRC_DIR)/UX/*.cpp $(SRC_DIR)/Entities/*.cpp $(SRC_DIR)/*.cpp)
 
 # Объектные файлы
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
