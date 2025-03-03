@@ -23,29 +23,6 @@ void Grid::drawGrid( SDL_Renderer* renderer ) {
     }
 }
 
-void Grid::printGrid() {
-    for (int i = 0; i < cell_rows; i++) {
-        std::cout << "+";
-        for (int j = 0; j < cell_cols; j++) {
-            std::cout << "---+";
-        }
-        std::cout << std::endl;
-
-        std::cout << "| ";
-        for (int j = 0; j < cell_cols; j++) {
-            std::cout << grid[i][j] << " | ";
-        }
-        std::cout << std::endl;
-    }
-
-    // Нижняя граница таблицы
-    std::cout << "+";
-    for (int j = 0; j < cell_cols; j++) {
-        std::cout << "---+";
-    }
-    std::cout << std::endl;
-}
-
 int Grid::getCellSize() const { return cell_size; }
 
 int Grid::getGridBorder() const { return grid_border; }
