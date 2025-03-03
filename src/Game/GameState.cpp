@@ -46,7 +46,7 @@ void StartMenuState::handleEvents( SDL_Event& e ) {
 
 void StartMenuState::update() {
     if ( startMenu.getIsClicked() ) {
-        // Здесь переключаем на PlayState
+        
     }
 }
 
