@@ -3,8 +3,8 @@
 Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) : 
     grid( grid ), 
     food( food ), 
-    lastMoveTime( 0 ), 
-    moveDelay( 200 ), 
+    last_move_time( 0 ), 
+    move_delay( 200 ), 
     dx( 0 ), 
     dy( 0 ),
     is_eating( false )
@@ -17,20 +17,18 @@ Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) :
 // - Вычисляет новую позицию головы, учитывая переход через границы сетки.
 // - Обновляет положение змейки, добавляя новую голову и удаляя хвост.
 void Snake::move() {
-    Uint32 currentTime = SDL_GetTicks();
-    if ( currentTime - lastMoveTime < moveDelay ) return;
-    lastMoveTime = currentTime;
+    Uint32 current_time = SDL_GetTicks();
+    if ( current_time - last_move_time < move_delay ) return;
+    last_move_time = current_time;
 
     int rows = grid->getCellRows();
     int cols = grid->getCellCols();
 
-    int newRow = ( segments.front().first + dy + rows ) % rows;
-    int newCol = ( segments.front().second + dx + cols ) % cols;
+    int new_row = ( segments.front().first + dy + rows ) % rows;
+    int new_col = ( segments.front().second + dx + cols ) % cols;
 
-    segments.push_front({ newRow, newCol });
-    if ( !is_eating ) { 
-        segments.pop_back();
-    }
+    segments.push_front({ new_row, new_col });
+    if ( !is_eating ) segments.pop_back();
     is_eating = false;
 }
 
@@ -62,10 +60,10 @@ void Snake::draw( SDL_Renderer* renderer ) {
 // Устанавливает новое направление движения змейки.  
 // - Запрещает разворот на 180 градусов (змейка не может двигаться в обратном направлении).  
 // - Обновляет значения dx и dy, задавая новое направление.
-void Snake::setDirection(int newDx, int newDy) {
-    if (newDx == -dx && newDy == -dy) return; // Запрет разворота на 180 градусов
-    dx = newDx;
-    dy = newDy;
+void Snake::setDirection(int new_dx, int new_dy) {
+    if (new_dx == -dx && new_dy == -dy) return; // Запрет разворота на 180 градусов
+    dx = new_dx;
+    dy = new_dy;
 }
 
 Snake::~Snake() {}
