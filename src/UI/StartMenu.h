@@ -8,7 +8,7 @@ private:
     bool is_clicked; // Флаг нажатия
 
 public:
-    StartMenu();
+    StartMenu( int window_width, int window_height );
 
     void draw( SDL_Renderer* renderer );
     void setClick( int x, int y );

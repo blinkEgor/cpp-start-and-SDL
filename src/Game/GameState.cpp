@@ -34,7 +34,7 @@ void PlayState::render() {
 // __ StartMenuState _______________________________________________________
 StartMenuState::StartMenuState( WindowManager* windowManager ) : 
     windowManager( windowManager ),
-    startMenu()
+    startMenu( windowManager->getWidth(), windowManager->getHeight() )
 {}
 
 void StartMenuState::handleEvents( SDL_Event& e ) {

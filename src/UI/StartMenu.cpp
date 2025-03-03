@@ -1,9 +1,12 @@
 #include "StartMenu.h"
 
-StartMenu::StartMenu() : 
+StartMenu::StartMenu( int window_width, int window_height ) : 
     is_clicked( false )
 {
-    button_rect = { 100, 100, 200, 50 };
+    button_rect.w = 200;
+    button_rect.h = 50;
+    button_rect.x = ( window_width - button_rect.w ) / 2;
+    button_rect.y = ( window_height - button_rect.h ) / 2;
 }
 
 void StartMenu::draw( SDL_Renderer* renderer ) {
