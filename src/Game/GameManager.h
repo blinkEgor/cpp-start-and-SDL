@@ -15,9 +15,6 @@ private:
     std::unique_ptr<GameState> currentState = nullptr;
     std::unique_ptr<GameState> nextState = nullptr;
 
-    // std::unique_ptr<PlayState> playState;
-    // std::unique_ptr<StartMenuState> startMenuState;
-
 public:
     GameManager( WindowManager* windowManager );
     void setNextState( std::unique_ptr<GameState> nextState );

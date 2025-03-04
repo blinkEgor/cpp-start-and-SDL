@@ -8,6 +8,13 @@ PlayState::PlayState( WindowManager* windowManager, GameManager* gameManager ) :
     food( &grid )
 {}
 
+// Отлов пользовательского взаимодействия
+// - Отлавливаем пользовательское событие нажатия на клавиши клавиатуры
+// - - Отлов нажатия на определенный клавиши
+// - - - Нажатие на W - направление вверх
+// - - - Нажатие на A - направление влево
+// - - - Нажатие на S - направление вниз
+// - - - Нажатие на D - направление вправо
 void PlayState::handleEvents( SDL_Event& e ) {
     if ( e.type == SDL_KEYDOWN ) {
         switch ( e.key.keysym.sym ) {
@@ -19,11 +26,19 @@ void PlayState::handleEvents( SDL_Event& e ) {
     }
 }
 
+// Обновление логики PlayState
+// - Двидение змейки
+// - Рост змейки
 void PlayState::update() {
     snake.move();
     snake.grow();
 }
 
+// Отрисовка объектов в PlayState
+// - Очистка окна чёрным цветом
+// - Отрисовка сетки
+// - Отрисовка еды
+// - Отрисовка змейки
 void PlayState::render() {
     windowManager->clearWindow();
     grid.drawGrid( windowManager->getRenderer() );
@@ -31,10 +46,14 @@ void PlayState::render() {
     snake.draw( windowManager->getRenderer() );
 }
 
+// Вход в игровое состояние PlayState
+// - Логируем сообщение о входе в игровое состояние
 void PlayState::enter() {
     logError( "Entering PlayState", LogLevel::INFO );
 }
 
+// Выход из игрового состояния PlayState
+// - Логируем сообщение о выходе из игрового состояния
 void PlayState::exit() {
     logError( "Exiting PlayState", LogLevel::INFO );
 }

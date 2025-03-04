@@ -9,7 +9,7 @@
 
 class PlayState : public GameState {
 protected:
-    GameManager* gameManager; // Указатель на GameManager
+    GameManager* gameManager;
 	WindowManager* windowManager;
 
 private:

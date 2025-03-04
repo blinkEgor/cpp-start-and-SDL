@@ -6,11 +6,11 @@
 #include "../Graphics/WindowManager.h"
 #include "../Utils/LogError.h"
 
-class GameManager; // Предварительное объявление
+class GameManager; // Предварительное объявление для компилятора
 
 class GameState {
 protected:
-    GameManager* gameManager; // Указатель на GameManager
+    GameManager* gameManager;
 	WindowManager* windowManager;
 
 public:

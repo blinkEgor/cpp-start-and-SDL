@@ -23,12 +23,13 @@ void Grid::drawGrid( SDL_Renderer* renderer ) {
     }
 }
 
+// Получаем размер одной клетки в пикселях
 int Grid::getCellSize() const { return cell_size; }
-
+// Получаем толщину отступа вокруг сетки в пикселях
 int Grid::getGridBorder() const { return grid_border; }
-
+// Колическтво клеток по ширине
 int Grid::getCellRows() const { return cell_rows; }
-
+// Количество клеток по высоте
 int Grid::getCellCols() const { return cell_cols; }
 
 Grid::~Grid() {}
