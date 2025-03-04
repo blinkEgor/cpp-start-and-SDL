@@ -11,21 +11,11 @@ void logError( const std::string& message, LogLevel level ) {
     std::string time_str = getCurrentTime();
     std::string level_str;
     switch (level) {
-        case LogLevel::INFO:
-            level_str = "[INFO] ";
-            break;
-        case LogLevel::ERROR:
-            level_str = "[ERROR] ";
-            break;
-        case LogLevel::WARNING:
-            level_str = "[WARNING] ";
-            break;
-        case LogLevel::DEBUG:
-            level_str = "[DEBUG] ";
-            break;
-        default:
-            level_str = "[UNKNOWN] ";
-            break;
+        case LogLevel::INFO: level_str = "[INFO] "; break;
+        case LogLevel::ERROR: level_str = "[ERROR] "; break;
+        case LogLevel::WARNING: level_str = "[WARNING] "; break;
+        case LogLevel::DEBUG: level_str = "[DEBUG] "; break;
+        default: level_str = "[UNKNOWN] "; break;
     }
     std::ofstream log_file( "error_log.txt", std::ios::app );
     if( log_file.is_open() ) {
