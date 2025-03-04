@@ -2,8 +2,12 @@
 
 #include <SDL2/SDL.h>
 #include <memory>
+
 #include "../Graphics/WindowManager.h"
+
 #include "GameState.h"
+#include "PlayState.h"
+#include "StartMenuState.h"
 
 class GameManager {
 private:
@@ -19,6 +23,5 @@ public:
     void setNextState( std::unique_ptr<GameState> nextState );
     void changeState();
 
-    PlayState* getPlayState() const;
     GameState* getCurrentState() const;
 };

@@ -17,6 +17,7 @@ int main( int /*argc*/, char** /*args[]*/ ) {
 	}
 	else {
 		GameManager gameManager( &windowManager );
+		// gameManager.setNextState( std::make_unique<PlayState>( &windowManager ) );
 		gameManager.setNextState( std::make_unique<StartMenuState>( &windowManager ) );
 		gameManager.changeState();
 
