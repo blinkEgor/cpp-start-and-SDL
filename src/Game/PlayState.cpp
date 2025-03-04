@@ -1,7 +1,8 @@
 #include "PlayState.h"
 
-PlayState::PlayState( WindowManager* windowManager ) : 
+PlayState::PlayState( WindowManager* windowManager, GameManager* gameManager ) : 
     windowManager( windowManager ),
+    gameManager( gameManager ),
     grid(),
     snake( &grid, &food, 5, 5 ),
     food( &grid )
@@ -28,4 +29,12 @@ void PlayState::render() {
     grid.drawGrid( windowManager->getRenderer() );
     food.draw( windowManager->getRenderer() );
     snake.draw( windowManager->getRenderer() );
+}
+
+void PlayState::enter() {
+    logError( "Entering PlayState" );
+}
+
+void PlayState::exit() {
+    logError( "Exiting PlayState" );
 }

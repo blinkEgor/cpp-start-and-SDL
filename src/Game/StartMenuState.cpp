@@ -1,7 +1,8 @@
 #include "StartMenuState.h"
 
-StartMenuState::StartMenuState( WindowManager* windowManager ) : 
+StartMenuState::StartMenuState( WindowManager* windowManager, GameManager* gameManager ) : 
     windowManager( windowManager ),
+    gameManager( gameManager ),
     startMenu( windowManager->getWidth(), windowManager->getHeight() )
 {}
 
@@ -14,11 +15,21 @@ void StartMenuState::handleEvents( SDL_Event& e ) {
 
 void StartMenuState::update() {
     if ( startMenu.getIsClicked() ) {
-        
+        // Переход в PlayState
+        gameManager->setNextState( std::make_unique<PlayState>( windowManager, gameManager ));
+        gameManager->changeState();
     }
 }
 
 void StartMenuState::render() {
     windowManager->clearWindow();
     startMenu.draw( windowManager->getRenderer() );
+}
+
+void StartMenuState::enter() {
+    logError( "Entering StartMenuState" );
+}
+
+void StartMenuState::exit() {
+    logError( "Exiting StartMenuState" );
 }

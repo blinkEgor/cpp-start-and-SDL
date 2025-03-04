@@ -17,9 +17,6 @@ int main( int /*argc*/, char** /*args[]*/ ) {
 	}
 	else {
 		GameManager gameManager( &windowManager );
-		// gameManager.setNextState( std::make_unique<PlayState>( &windowManager ) );
-		gameManager.setNextState( std::make_unique<StartMenuState>( &windowManager ) );
-		gameManager.changeState();
 
 		SDL_Event e;	// Event
 		bool quit = false;	// flag for window stay displayed
@@ -32,7 +29,10 @@ int main( int /*argc*/, char** /*args[]*/ ) {
 			
 			// 1. Event handling
 			while( SDL_PollEvent( &e ) ) {	// check close window
-				if( e.type == SDL_QUIT ) quit = true;
+				if( e.type == SDL_QUIT ) {
+					quit = true;
+					gameManager.getCurrentState()->exit();
+				}
 				gameManager.getCurrentState()->handleEvents( e );
 			}
 
