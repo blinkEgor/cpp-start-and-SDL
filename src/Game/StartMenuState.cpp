@@ -27,9 +27,9 @@ void StartMenuState::render() {
 }
 
 void StartMenuState::enter() {
-    logError( "Entering StartMenuState" );
+    logError( "Entering StartMenuState", LogLevel::INFO );
 }
 
 void StartMenuState::exit() {
-    logError( "Exiting StartMenuState" );
+    logError( "Exiting StartMenuState", LogLevel::INFO );
 }

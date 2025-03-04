@@ -32,9 +32,9 @@ void PlayState::render() {
 }
 
 void PlayState::enter() {
-    logError( "Entering PlayState" );
+    logError( "Entering PlayState", LogLevel::INFO );
 }
 
 void PlayState::exit() {
-    logError( "Exiting PlayState" );
+    logError( "Exiting PlayState", LogLevel::INFO );
 }

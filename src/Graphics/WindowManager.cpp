@@ -9,27 +9,27 @@ WindowManager::WindowManager(const std::string& title, int width, int height)
 // initialize Renderer
 bool WindowManager::init() {
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
-		logError( "SDL could not initialize! SDL_Error: " + std::string( SDL_GetError() ) );
+		logError( "SDL could not initialize! SDL_Error: " + std::string( SDL_GetError() ), LogLevel::ERROR );
 		return false;
 	} else {
-		logError( "SDL initialization: successful" );
+		logError( "SDL initialization: successful", LogLevel::INFO );
 	}
 
 	window = SDL_CreateWindow( title.c_str(), W_POS_X, W_POS_Y, SCREEN_WIDTH, SCREEN_HEIGHT, W_FLAGS );
 	if( window == nullptr ) {
-		logError( "Window could not be created! SDL_Error: " + std::string( SDL_GetError() ) );
+		logError( "Window could not be created! SDL_Error: " + std::string( SDL_GetError() ), LogLevel::ERROR );
 		cleanup();
 		return false;
 	} else {
-		logError( "Window initialization: successful" );
+		logError( "Window initialization: successful", LogLevel::INFO );
 	}
 
 	renderer = SDL_CreateRenderer( window, D_INDEX, R_FLAGS );
 	if( renderer == nullptr ) {
-		logError( "Renderer could not be created! SDL_Error: " + std::string( SDL_GetError() ) );
+		logError( "Renderer could not be created! SDL_Error: " + std::string( SDL_GetError() ), LogLevel::ERROR );
 		return false;
 	} else {
-		logError( "Renderer initialization: successful" );
+		logError( "Renderer initialization: successful", LogLevel::INFO );
 	}
 
 	return true;
@@ -60,16 +60,16 @@ void WindowManager::cleanup() {
 	if( renderer != nullptr ) {
 		SDL_DestroyRenderer( renderer );
 		renderer = nullptr;
-		logError( "Renderer successfully destroyed" );
+		logError( "Renderer successfully destroyed", LogLevel::INFO );
 	}
 
 	if( window != nullptr ) {
 		SDL_DestroyWindow( window );
 		window = nullptr;
-		logError( "Window successfully destroyed" );
+		logError( "Window successfully destroyed", LogLevel::INFO );
 	}
 	SDL_Quit();
-	logError( "SDL successfully quit" );
+	logError( "SDL successfully quit", LogLevel::INFO );
 }
 
 // destructor

@@ -6,5 +6,13 @@
 #include <iomanip>  // Для форматирования вывода
 #include <ctime>    // Для преобразования времени в строку
 
-void logError( const std::string& message );
+// Перечисление для типов сообщений
+enum class LogLevel {
+    INFO,
+    ERROR,
+    WARNING,
+    DEBUG
+};
+
+void logError( const std::string& message, LogLevel level = LogLevel::ERROR );
 std::string getCurrentTime();
