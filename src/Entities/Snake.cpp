@@ -48,11 +48,13 @@ void Snake::grow() {
 // - Рисует каждый сегмент в виде квадрата, соответствующего размеру клетки.
 void Snake::draw( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 ); // Цвет змейки: зелёный
+    const int grid_border = grid->getGridBorder();
+    const int cell_size = grid->getCellSize();
     for ( auto& segment : segments ) {
         SDL_Rect rect = { 
-            grid->getGridBorder() + segment.second * grid->getCellSize(), 
-            grid->getGridBorder() + segment.first * grid->getCellSize(), 
-            grid->getCellSize(), grid->getCellSize() };
+            grid_border + segment.second * cell_size, 
+            grid_border + segment.first * cell_size, 
+            cell_size, cell_size };
         SDL_RenderFillRect( renderer, &rect );
     }
 }
