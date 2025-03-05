@@ -12,7 +12,7 @@ int main( int /*argc*/, char** /*args[]*/ ) {
 	WindowManager windowManager( "Snake", 32*24+32, 32*16+32 );
 	
 	if( !windowManager.init() ) {
-		std::cout << "Failed to initialize WindowManager" << std::endl;
+		logError( "Failed to initialize WindowManager", LogLevel::ERROR );
 		return -1;
 	}
 	else {
