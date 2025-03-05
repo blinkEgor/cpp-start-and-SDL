@@ -27,11 +27,25 @@ void PlayState::handleEvents( SDL_Event& e ) {
 }
 
 // Обновление логики PlayState
-// - Двидение змейки
-// - Рост змейки
+// - Если змейка жива
+// - - Двидение змейки
+// - - Рост змейки
+// - - Проверка змейки на столкновение со своим хвостом
+// - Если нет
+// - - Логироем сообщение о смерти только один раз
 void PlayState::update() {
-    snake.move();
-    snake.grow();
+    if ( snake.getIsAlive() ) {
+        snake.checkCollision();
+        snake.move();
+        snake.grow();
+    } else {
+        static bool logged_death = false;
+        if ( !logged_death ) {
+            logError( "Snake is died", LogLevel::INFO );
+            logged_death = true;
+        }
+        // Тут будет визуальное сообщение о смерти и кнопка с предложением выйти в стартовое меню
+    }
 }
 
 // Отрисовка объектов в PlayState

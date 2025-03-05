@@ -7,7 +7,8 @@ Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) :
     move_delay( 200 ), 
     dx( 0 ), 
     dy( 0 ),
-    is_eating( false )
+    is_eating( false ),
+    is_alive( true )
 {
     segments.push_back( { start_row, start_col } );
 }
@@ -62,10 +63,30 @@ void Snake::draw( SDL_Renderer* renderer ) {
 // Устанавливает новое направление движения змейки.  
 // - Запрещает разворот на 180 градусов (змейка не может двигаться в обратном направлении).  
 // - Обновляет значения dx и dy, задавая новое направление.
-void Snake::setDirection(int new_dx, int new_dy) {
-    if (new_dx == -dx && new_dy == -dy) return; // Запрет разворота на 180 градусов
+void Snake::setDirection( int new_dx, int new_dy ) {
+    if ( new_dx == -dx && new_dy == -dy ) return; // Запрет разворота на 180 градусов
     dx = new_dx;
     dy = new_dy;
 }
+
+// Проверяем столкновение змейки с самой собой
+// - Проверяем достаточно ли змейка большая для того чтобы столкнуться с хвостом
+// - Запоминаем голову змейки
+// - сравниваем позиции сегментов змейки не включая голову первые три сегмента так как они никак столкнуться не могут
+// - Если столкновение есть, то змейка умирает меняя флаг is_alive на false и выходим из функции
+void Snake::checkCollision() {
+    if ( segments.size() >= 4 ) {
+        auto head = segments.front();
+        for ( auto it = segments.begin() + 3; it != segments.end(); ++it ) {
+            if ( *it == head ) {
+                is_alive = false;
+                return;
+            }
+        }
+    }
+}
+
+// Получаем флаг жива змейка или нет
+bool Snake::getIsAlive() const { return is_alive; }
 
 Snake::~Snake() {}
