@@ -20,7 +20,8 @@ void Food::respawnFood() {
 // - Рисует квадрат, представляющий еду.
 void Food::draw( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 ); // Цвет еды: красный
-    int grid_border = grid->getGridBorder(), grid_cell_size = grid->getCellSize();
+    const int grid_border = grid->getGridBorder();
+    const int grid_cell_size = grid->getCellSize();
     SDL_Rect rect = { 
         grid_border + col * grid_cell_size, 
         grid_border + row * grid_cell_size, 
