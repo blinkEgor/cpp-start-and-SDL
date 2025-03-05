@@ -35,15 +35,17 @@ void PlayState::update() {
 }
 
 // Отрисовка объектов в PlayState
+// - Кэшируем рендерер, для читаемости и микро-оптимизации
 // - Очистка окна чёрным цветом
 // - Отрисовка сетки
 // - Отрисовка еды
 // - Отрисовка змейки
 void PlayState::render() {
+    SDL_Renderer* renderer = windowManager->getRenderer();
     windowManager->clearWindow();
-    grid.drawGrid( windowManager->getRenderer() );
-    food.draw( windowManager->getRenderer() );
-    snake.draw( windowManager->getRenderer() );
+    grid.drawGrid( renderer );
+    food.draw( renderer );
+    snake.draw( renderer );
 }
 
 // Вход в игровое состояние PlayState
