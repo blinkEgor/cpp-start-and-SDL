@@ -45,17 +45,20 @@ void Snake::grow() {
 
 // Отрисовывает змейку на экране, заполняя её сегменты зелёным цветом.
 // - Устанавливает цвет рисования (зелёный).
+// - Кэширует часто используемые вызовы функций и объекта
 // - Проходит по всем сегментам змейки, рассчитывая их положение в пикселях с учётом отступа сетки.
 // - Рисует каждый сегмент в виде квадрата, соответствующего размеру клетки.
 void Snake::draw( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 ); // Цвет змейки: зелёный
+
     const int grid_border = grid->getGridBorder();
-    const int cell_size = grid->getCellSize();
+    const int grid_cell_size = grid->getCellSize();
+    SDL_Rect rect = { 0, 0, grid_cell_size, grid_cell_size };
+
     for ( auto& segment : segments ) {
-        SDL_Rect rect = { 
-            grid_border + segment.second * cell_size, 
-            grid_border + segment.first * cell_size, 
-            cell_size, cell_size };
+        rect.x = grid_border + segment.second * grid_cell_size;
+        rect.y = grid_border + segment.first * grid_cell_size;
+        
         SDL_RenderFillRect( renderer, &rect );
     }
 }
