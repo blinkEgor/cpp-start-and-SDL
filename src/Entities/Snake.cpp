@@ -91,5 +91,7 @@ void Snake::checkCollision() {
 
 // Получаем флаг жива змейка или нет
 bool Snake::getIsAlive() const { return is_alive; }
+// Получаем размер змейки
+int Snake::getNumberOfSegments() const { return segments.size(); }
 
 Snake::~Snake() {}

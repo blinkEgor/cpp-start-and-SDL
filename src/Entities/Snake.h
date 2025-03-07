@@ -24,5 +24,6 @@ public:
     void setDirection( int new_dx, int new_dy );
     void checkCollision();
     bool getIsAlive() const;
+    int getNumberOfSegments() const;
     ~Snake();
 };

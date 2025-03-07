@@ -57,16 +57,21 @@ void PlayState::render() {
     grid.drawGrid( renderer );
     food.draw( renderer );
     snake.draw( renderer );
+    if ( snake.getIsAlive() ) {
+        // Рисуем кнопку рестарта и сообщение смерти
+    }
 }
 
 // Вход в игровое состояние PlayState
 // - Логируем сообщение о входе в игровое состояние
 void PlayState::enter() {
     logError( "Entering PlayState", LogLevel::INFO );
+    logError( "Starting size of the snake: 1", LogLevel::INFO );
 }
 
 // Выход из игрового состояния PlayState
 // - Логируем сообщение о выходе из игрового состояния
 void PlayState::exit() {
+    logError( "The size of your snake was: " + std::to_string( snake.getNumberOfSegments() ), LogLevel::INFO );
     logError( "Exiting PlayState", LogLevel::INFO );
 }
