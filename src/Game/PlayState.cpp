@@ -5,7 +5,8 @@ PlayState::PlayState( WindowManager* windowManager, GameManager* gameManager ) :
     gameManager( gameManager ),
     grid(),
     snake( &grid, &food, 5, 5 ),
-    food( &grid )
+    food( &grid ),
+    restartButton( windowManager->getWidth(), windowManager->getHeight() )
 {}
 
 // Отлов пользовательского взаимодействия
@@ -22,6 +23,12 @@ void PlayState::handleEvents( SDL_Event& e ) {
             case SDLK_s: snake.setDirection( 0, 1 );  break;
             case SDLK_a: snake.setDirection( -1, 0 ); break;
             case SDLK_d: snake.setDirection( 1, 0 );  break;
+        }
+    }
+    if ( !snake.getIsAlive() ) {
+        if ( e.type == SDL_MOUSEBUTTONDOWN ) {
+            int x = e.button.x, y = e.button.y;
+            restartButton.setClick( x, y );
         }
     }
 }
@@ -41,7 +48,10 @@ void PlayState::update() {
             logError( "Snake is died", LogLevel::INFO );
             logged_death = true;
         }
-        // Тут будет визуальное сообщение о смерти и кнопка с предложением выйти в стартовое меню
+        if ( restartButton.getIsClicked() ) {
+            gameManager->setNextState( std::make_unique<StartMenuState>( windowManager, gameManager ));
+            gameManager->changeState();
+        }
     }
 }
 
@@ -57,8 +67,8 @@ void PlayState::render() {
     grid.drawGrid( renderer );
     food.draw( renderer );
     snake.draw( renderer );
-    if ( snake.getIsAlive() ) {
-        // Рисуем кнопку рестарта и сообщение смерти
+    if ( !snake.getIsAlive() ) {
+        restartButton.draw( windowManager->getRenderer() );
     }
 }
 

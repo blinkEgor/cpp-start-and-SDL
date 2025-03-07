@@ -2,7 +2,7 @@
 CXX = g++
 
 # Флаги компиляции
-CXXFLAGS = -std=c++17 -Wall -Wextra
+CXXFLAGS = -std=c++17 -Wall -Wextra -MMD
 
 # Библиотеки
 LIBS = -lSDL2
@@ -19,6 +19,9 @@ OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
 # Имя исполняемого файла
 TARGET = main
+
+# Подключение сгенерированных зависимостей
+-include $(OBJ_FILES:.o=.d)
 
 # Правило по умолчанию
 all: $(TARGET)
@@ -40,3 +43,4 @@ run: $(TARGET)
 clean:
 	rm -f $(TARGET)
 	rm -rf $(OBJ_DIR)
+	find $(OBJ_DIR) -name "*.d" -delete
