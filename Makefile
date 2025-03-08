@@ -11,11 +11,12 @@ LIBS = -lSDL2 -lSDL2_ttf
 SRC_DIR = src
 OBJ_DIR = obj
 
-# Исходные файлы
-SRC_FILES = $(wildcard $(SRC_DIR)/Graphics/*.cpp $(SRC_DIR)/Utils/*.cpp $(SRC_DIR)/Game/*.cpp $(SRC_DIR)/UI/*.cpp $(SRC_DIR)/UX/*.cpp $(SRC_DIR)/Entities/*.cpp $(SRC_DIR)/*.cpp)
+# Поиск всех исходников рекурсивно
+SRC_FILES := $(shell find $(SRC_DIR) -type f -name "*.cpp")
 
-# Объектные файлы
-OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
+# Генерация объектных файлов с сохранением структуры папок
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
+OBJ_FILES := $(subst $(SRC_DIR)/, $(OBJ_DIR)/, $(OBJ_FILES))
 
 # Имя исполняемого файла
 TARGET = main
@@ -30,12 +31,12 @@ all: $(TARGET)
 $(TARGET): $(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJ_FILES) $(LIBS)
 
-# Правило для компиляции .cpp файлов в .o
+# Компиляция .cpp -> .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Запуск программы
+# Запуск
 run: $(TARGET)
 	./$(TARGET)
 
@@ -43,4 +44,3 @@ run: $(TARGET)
 clean:
 	rm -f $(TARGET)
 	rm -rf $(OBJ_DIR)
-	find $(OBJ_DIR) -name "*.d" -delete

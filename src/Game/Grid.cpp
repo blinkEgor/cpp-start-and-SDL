@@ -7,7 +7,8 @@ Grid::Grid() :
     grid_border( 16 ), 
     grid_rows_size( cell_size * cell_rows + 2 * grid_border ), 
     grid_cols_size( cell_size * cell_cols + 2 * grid_border ), 
-    grid( cell_rows, std::vector<int>( cell_cols, 0 ) ) {}
+    grid( cell_rows, std::vector<int>( cell_cols, 0 ) ) 
+{}
 
 // Рисует сетку
 // Цвет сетки
@@ -16,10 +17,10 @@ Grid::Grid() :
 void Grid::drawGrid( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 50, 50, 50, 255 ); 
     for ( int x = grid_border; x <= grid_cols_size + cell_size - grid_border; x += cell_size ) {
-        SDL_RenderDrawLine(renderer, x, grid_border, x, grid_border + cell_rows * cell_size);
+        SDL_RenderDrawLine( renderer, x, grid_border, x, grid_border + cell_rows * cell_size );
     }
     for ( int y = grid_border; y <= grid_rows_size + cell_size - grid_border; y += cell_size ) {
-        SDL_RenderDrawLine(renderer, grid_border, y, grid_border + cell_cols * cell_size, y);
+        SDL_RenderDrawLine( renderer, grid_border, y, grid_border + cell_cols * cell_size, y );
     }
 }
 

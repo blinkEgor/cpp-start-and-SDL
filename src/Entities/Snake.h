@@ -11,7 +11,7 @@ private:
     Grid* grid;
     Food* food;
     Uint32 last_move_time; // Время последнего хода змейки
-    int move_delay; // Задержка между ходами (мс)
+    Uint32 move_delay; // Задержка между ходами (мс)
     int dx, dy; // Текущее направление движения
     bool is_eating; // Флаг, едим или нет?
     bool is_alive; // Флаг, змейка жива?

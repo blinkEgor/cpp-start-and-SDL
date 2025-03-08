@@ -7,8 +7,8 @@
 
 class StartMenuState : public GameState {
 protected:
-    GameManager* gameManager;
 	WindowManager* windowManager;
+    GameManager* gameManager;
 
 private:
 	StartMenu startMenu;

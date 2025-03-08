@@ -10,8 +10,8 @@
 
 class PlayState : public GameState {
 protected:
-    GameManager* gameManager;
 	WindowManager* windowManager;
+    GameManager* gameManager;
 
 private:
 	Grid grid;
