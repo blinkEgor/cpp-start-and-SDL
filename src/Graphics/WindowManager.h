@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 #include "../Utils/LogError.h"
 
@@ -8,6 +9,7 @@ class WindowManager {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	TTF_Font* font = nullptr;
 	const int W_POS_X = SDL_WINDOWPOS_UNDEFINED; // Константа для позиции окна по X
 	const int W_POS_Y = SDL_WINDOWPOS_UNDEFINED; // Константа для позиции окна по Y
 	int SCREEN_WIDTH;
@@ -20,7 +22,7 @@ private:
 
 public:
 	// Конструктор
-	WindowManager(const std::string& title = "SDL Window", int width = 640, int height = 480);
+	WindowManager( const std::string& title = "SDL Window", int width = 640, int height = 480 );
 	
 	// Методы
 	bool init();
@@ -28,7 +30,7 @@ public:
 	SDL_Renderer* getRenderer() const;
 	int getWidth() const;
 	int getHeight() const;
-	void setColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha = 255);
+	void setColor( Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha = 255 );
 	void clearWindow();
 	void cleanup();
 

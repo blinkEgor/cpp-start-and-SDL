@@ -1,8 +1,11 @@
 #include "WindowManager.h"
 
 // constructor
-WindowManager::WindowManager(const std::string& title, int width, int height)
-: title(title), SCREEN_WIDTH(width), SCREEN_HEIGHT(height) {}
+WindowManager::WindowManager( const std::string& title, int width, int height ) : 
+	title( title ), 
+	SCREEN_WIDTH( width ), 
+	SCREEN_HEIGHT( height ) 
+{}
 
 // initialize SQL 
 // initialize Window
@@ -27,9 +30,26 @@ bool WindowManager::init() {
 	renderer = SDL_CreateRenderer( window, D_INDEX, R_FLAGS );
 	if( renderer == nullptr ) {
 		logError( "Renderer could not be created! SDL_Error: " + std::string( SDL_GetError() ), LogLevel::ERROR );
+		cleanup();
 		return false;
 	} else {
 		logError( "Renderer initialization: successful", LogLevel::INFO );
+	}
+
+	if ( TTF_Init() == -1 ) {
+		logError( "TTF initialization error: " + std::string( TTF_GetError() ), LogLevel::ERROR );
+    	return false;
+	} else {
+		logError( "TTF initialization: successful", LogLevel::INFO );
+	}
+
+	font = TTF_OpenFont( "assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf", 24 );
+	if ( !font ) {
+		logError( "Error loading font: " + std::string( TTF_GetError() ), LogLevel::ERROR );
+		cleanup();
+		return false;
+	} else {
+		logError( "Font loading: successful", LogLevel::INFO );
 	}
 
 	return true;
@@ -45,7 +65,7 @@ int WindowManager::getWidth() const { return SCREEN_WIDTH; }
 int WindowManager::getHeight() const { return SCREEN_HEIGHT; }
 
 // set color for clear window
-void WindowManager::setColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) {
+void WindowManager::setColor( Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha ) {
 	r = red; g = green; b = blue; a = alpha;
 }
 
@@ -57,19 +77,33 @@ void WindowManager::clearWindow() {
 
 // clean up all for close program
 void WindowManager::cleanup() {
+    if ( font != nullptr ) {
+        TTF_CloseFont( font );
+        font = nullptr;
+        logError( "Font successfully closed", LogLevel::INFO );
+    }
+
+    TTF_Quit();
+    logError( "TTF successfully quit", LogLevel::INFO );
+
 	if( renderer != nullptr ) {
 		SDL_DestroyRenderer( renderer );
 		renderer = nullptr;
 		logError( "Renderer successfully destroyed", LogLevel::INFO );
-	}
+	} else {
+        logError( "Renderer was already null", LogLevel::WARNING );
+    }
 
 	if( window != nullptr ) {
 		SDL_DestroyWindow( window );
 		window = nullptr;
 		logError( "Window successfully destroyed", LogLevel::INFO );
-	}
+	} else {
+        logError( "Window was already null", LogLevel::WARNING );
+    }
+
 	SDL_Quit();
-	logError( "SDL successfully quit", LogLevel::INFO );
+	logError( "SDL successfully quit\n", LogLevel::INFO );
 }
 
 // destructor

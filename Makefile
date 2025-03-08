@@ -5,7 +5,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -MMD
 
 # Библиотеки
-LIBS = -lSDL2
+LIBS = -lSDL2 -lSDL2_ttf
 
 # Директории
 SRC_DIR = src
