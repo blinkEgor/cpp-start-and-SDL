@@ -30,9 +30,9 @@ void StartMenuState::update() {
 // Отрисовка объектов в StartMenuState
 // - Очистка окна чёрным цветом
 // - Рисуем все элементы стартового меню
-void StartMenuState::render() {
+void StartMenuState::render( SDL_Renderer* renderer ) {
     windowManager->clearWindow();
-    startMenu.draw( windowManager->getRenderer() );
+    startMenu.draw( renderer );
 }
 
 // Вход в игровое состояние StartMenuState

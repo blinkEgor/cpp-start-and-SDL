@@ -18,7 +18,7 @@ public:
 
 	void handleEvents( SDL_Event& e );
     void update();
-    void render();
+    void render( SDL_Renderer* renderer );
     void enter();
     void exit();
 };

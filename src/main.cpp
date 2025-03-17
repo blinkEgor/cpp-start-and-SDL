@@ -40,7 +40,7 @@ int main( int /*argc*/, char** /*args[]*/ ) {
 			gameManager.getCurrentState()->update();
 
 			// 3. Rendering
-			gameManager.getCurrentState()->render();
+			gameManager.getCurrentState()->render( windowManager.getRenderer() );
 			SDL_RenderPresent( windowManager.getRenderer() );
 
 			// 4. FPS manager

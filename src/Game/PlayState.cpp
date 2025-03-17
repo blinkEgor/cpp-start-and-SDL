@@ -61,14 +61,13 @@ void PlayState::update() {
 // - Отрисовка сетки
 // - Отрисовка еды
 // - Отрисовка змейки
-void PlayState::render() {
-    SDL_Renderer* renderer = windowManager->getRenderer();
+void PlayState::render( SDL_Renderer* renderer ) {
     windowManager->clearWindow();
     grid.drawGrid( renderer );
     food.draw( renderer );
     snake.draw( renderer );
     if ( !snake.getIsAlive() ) {
-        restartButton.draw( windowManager->getRenderer() );
+        restartButton.draw( renderer );
     }
 }
 
