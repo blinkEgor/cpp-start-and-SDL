@@ -2,8 +2,14 @@
 
 GameManager::GameManager( WindowManager* windowManager ) : 
     windowManager( windowManager )
-{ // Ставим состояние игры по умолчанию
-    setNextState( std::make_unique<StartMenuState>( windowManager, this ) );
+{ 
+    // Создаем коллбэк для смены состояния
+    auto callback = [ this ]( std::unique_ptr<GameState> newState ) {
+        setNextState( std::move( newState ) );
+    };
+    
+    // Ставим состояние игры по умолчанию
+    setNextState( std::make_unique<StartMenuState>( windowManager, callback ) );
     changeState();
 }
 
@@ -12,8 +18,9 @@ void GameManager::gameLoop() {
     SDL_Event e;	// Event
     bool quit = false;	// flag for window stay displayed
     Uint32 frame_start;
+    const int ONE_SEC = 1000;
     const int FPS = 60;
-    const int FRAME_DELAY = 1000 / FPS;
+    const int FRAME_DELAY = ONE_SEC / FPS;
 
     while( quit == false ) {
         frame_start = SDL_GetTicks();
@@ -39,6 +46,9 @@ void GameManager::gameLoop() {
         if ( FRAME_DELAY > frame_time ) {
             SDL_Delay( FRAME_DELAY - frame_time );
         }
+
+        // 5. Change GameState if needs
+        changeState();
     }
 }
 
@@ -57,6 +67,7 @@ void GameManager::changeState() {
         }
         currentState = std::move( nextState );
         currentState->enter();
+        nextState = nullptr;
     }
 }
 

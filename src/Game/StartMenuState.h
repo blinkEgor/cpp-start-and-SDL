@@ -1,20 +1,18 @@
 #pragma once
 
 #include "GameState.h"
-#include "GameManager.h"
-
 #include "../UI/StartMenu.h"
+#include "PlayState.h"
 
 class StartMenuState : public GameState {
 protected:
 	WindowManager* windowManager;
-    GameManager* gameManager;
 
 private:
 	StartMenu startMenu;
 
 public:
-	StartMenuState( WindowManager* windowManager, GameManager* gameManager );
+	StartMenuState( WindowManager* windowManager, GameState::StateChangeCallback callback );
 
 	void handleEvents( SDL_Event& e );
     void update();

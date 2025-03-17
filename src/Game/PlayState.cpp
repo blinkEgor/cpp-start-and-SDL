@@ -1,13 +1,14 @@
 #include "PlayState.h"
 
-PlayState::PlayState( WindowManager* windowManager, GameManager* gameManager ) : 
+PlayState::PlayState( WindowManager* windowManager, GameState::StateChangeCallback callback ) : 
     windowManager( windowManager ),
-    gameManager( gameManager ),
     grid(),
-    snake( &grid, &food, 5, 5 ),
     food( &grid ),
+    snake( &grid, &food, 5, 5 ),
     restartButton( windowManager->getWidth(), windowManager->getHeight() )
-{}
+{
+    setStateChangeCallback( callback ); // Устанавливаем коллбэк
+}
 
 // Отлов пользовательского взаимодействия
 // - Отлавливаем пользовательское событие нажатия на клавиши клавиатуры
@@ -35,7 +36,8 @@ void PlayState::handleEvents( SDL_Event& e ) {
 
 // Обновляет логику игры:
 // - Если змейка жива: двигается, растёт, проверяет столкновение.
-// - Если мертва: логируем сообщение только один раз.
+// - Если мертва: логируем сообщение только один раз и
+// используем коллбэк для смены состояния
 void PlayState::update() {
     static bool logged_death = false;
     if ( snake.getIsAlive() ) {
@@ -49,8 +51,9 @@ void PlayState::update() {
             logged_death = true;
         }
         if ( restartButton.getIsClicked() ) {
-            gameManager->setNextState( std::make_unique<StartMenuState>( windowManager, gameManager ));
-            gameManager->changeState();
+            if ( stateChangeCallback ) {
+                stateChangeCallback( std::make_unique<StartMenuState>( windowManager, stateChangeCallback ) );
+            }
         }
     }
 }

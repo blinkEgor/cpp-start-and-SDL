@@ -1,8 +1,7 @@
 #pragma once
 
 #include "GameState.h"
-#include "GameManager.h"
-
+#include "StartMenuState.h"
 #include "Grid.h"
 #include "../Entities/Snake.h"
 #include "../Entities/Food.h"
@@ -11,16 +10,15 @@
 class PlayState : public GameState {
 protected:
 	WindowManager* windowManager;
-    GameManager* gameManager;
 
 private:
 	Grid grid;
-	Snake snake;
 	Food food;
+	Snake snake;
     RestartButton restartButton;
 
 public: 
-	PlayState( WindowManager* windowManager, GameManager* gameManager );
+	PlayState( WindowManager* windowManager, GameState::StateChangeCallback callback );
 	
     void handleEvents( SDL_Event& e );
     void update();

@@ -1,10 +1,11 @@
 #include "StartMenuState.h"
 
-StartMenuState::StartMenuState( WindowManager* windowManager, GameManager* gameManager ) : 
+StartMenuState::StartMenuState( WindowManager* windowManager, GameState::StateChangeCallback callback ) : 
     windowManager( windowManager ),
-    gameManager( gameManager ),
     startMenu( windowManager->getWidth(), windowManager->getHeight() )
-{}
+{
+    setStateChangeCallback( callback );
+}
 
 // Отлов пользовательского взаимодействия
 // - Проверяем был ли клик мышкой
@@ -19,11 +20,12 @@ void StartMenuState::handleEvents( SDL_Event& e ) {
 
 // Обновление логики StartMenuState
 // - Проверяем флаг нажатия на кнопку старта игры
-// - - Переход в PlayState
+// - - Используем коллбэк для смены состояния
 void StartMenuState::update() {
     if ( startMenu.getIsClicked() ) {
-        gameManager->setNextState( std::make_unique<PlayState>( windowManager, gameManager ));
-        gameManager->changeState();
+        if ( stateChangeCallback ) {
+            stateChangeCallback( std::make_unique<PlayState>( windowManager, stateChangeCallback ) );
+        }
     }
 }
 
