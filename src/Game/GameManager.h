@@ -4,10 +4,9 @@
 #include <memory>
 
 #include "../Graphics/WindowManager.h"
-
 #include "GameState.h"
-#include "PlayState.h"
 #include "StartMenuState.h"
+#include "PlayState.h"
 
 class GameManager {
 private:
@@ -17,6 +16,8 @@ private:
 
 public:
     GameManager( WindowManager* windowManager );
+
+    void gameLoop();
     void setNextState( std::unique_ptr<GameState> nextState );
     void changeState();
 
