@@ -1,20 +1,20 @@
 #include "GameManager.h"
 
-GameManager::GameManager( WindowManager* windowManager ) : 
-    windowManager( windowManager )
+GameManager::GameManager( WindowManager* window_manager ) : 
+    window_manager( window_manager )
 { 
     // Создаем коллбэк для смены состояния
     auto callback = [ this ]( std::unique_ptr<GameState> newState ) {
-        setNextState( std::move( newState ) );
+        set_next_state( std::move( newState ) );
     };
     
     // Ставим состояние игры по умолчанию
-    setNextState( std::make_unique<StartMenuState>( windowManager, callback ) );
-    changeState();
+    set_next_state( std::make_unique<StartMenuState>( window_manager, callback ) );
+    change_state();
 }
 
 // Игровой цикл в котором есть переменны для управления кадрами, закрытием окна, объявление ивентов
-void GameManager::gameLoop() {
+void GameManager::game_loop() {
     SDL_Event e;	// Event
     bool quit = false;	// flag for window stay displayed
     Uint32 frame_start;
@@ -29,17 +29,17 @@ void GameManager::gameLoop() {
         while( SDL_PollEvent( &e ) ) {
             if( e.type == SDL_QUIT ) { // check close window
                 quit = true;
-                getCurrentState()->exit();
+                get_current_state()->exit();
             }
-            getCurrentState()->handleEvents( e );
+            get_current_state()->handle_events( e );
         }
 
         // 2. Logic update
-        getCurrentState()->update();
+        get_current_state()->update();
 
         // 3. Rendering
-        getCurrentState()->render( windowManager->getRenderer() );
-        SDL_RenderPresent( windowManager->getRenderer() );
+        get_current_state()->render( window_manager->get_renderer() );
+        SDL_RenderPresent( window_manager->get_renderer() );
 
         // 4. FPS manager
         Uint32 frame_time = SDL_GetTicks() - frame_start;
@@ -48,27 +48,27 @@ void GameManager::gameLoop() {
         }
 
         // 5. Change GameState if needs
-        changeState();
+        change_state();
     }
 }
 
 // Назначаем следующее состояние игры
-void GameManager::setNextState( std::unique_ptr<GameState> newState ) {
-    nextState = std::move( newState );
+void GameManager::set_next_state( std::unique_ptr<GameState> new_next_state ) {
+    m_next_state = std::move( new_next_state );
 }
 
 // Меняем состояние игры
 // - Завершаем текущее состояние
 // - Инициализируем новое состояние
-void GameManager::changeState() {
-    if ( nextState ) {
-        if ( currentState ) {
-            currentState->exit();
+void GameManager::change_state() {
+    if ( m_next_state ) {
+        if ( m_current_state ) {
+            m_current_state->exit();
         }
-        currentState = std::move( nextState );
-        currentState->enter();
+        m_current_state = std::move( m_next_state );
+        m_current_state->enter();
     }
 }
 
 // Получаем текущее состояние игры
-GameState* GameManager::getCurrentState() const { return currentState.get(); }
+GameState* GameManager::get_current_state() const { return m_current_state.get(); }

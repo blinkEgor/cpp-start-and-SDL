@@ -10,16 +10,16 @@
 
 class GameManager {
 private:
-    WindowManager* windowManager;
-    std::unique_ptr<GameState> currentState = nullptr;
-    std::unique_ptr<GameState> nextState = nullptr;
+    WindowManager* window_manager;
+    std::unique_ptr<GameState> m_current_state = nullptr;
+    std::unique_ptr<GameState> m_next_state = nullptr;
 
 public:
-    GameManager( WindowManager* windowManager );
+    GameManager( WindowManager* window_manager );
 
-    void gameLoop();
-    void setNextState( std::unique_ptr<GameState> nextState );
-    void changeState();
+    void game_loop();
+    void set_next_state( std::unique_ptr<GameState> next_state );
+    void change_state();
 
-    GameState* getCurrentState() const;
+    GameState* get_current_state() const;
 };

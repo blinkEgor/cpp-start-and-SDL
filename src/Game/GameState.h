@@ -7,16 +7,13 @@
 #include "../Graphics/WindowManager.h"
 #include "../Utils/LogError.h"
 
-// class GameManager; // Предварительное объявление для компилятора
-
 class GameState {
 protected:
-    // GameManager* gameManager;
-	WindowManager* windowManager;
+	WindowManager* window_manager;
 
 public:
     using StateChangeCallback = std::function< void( std::unique_ptr<GameState> ) >; // Определяем тип коллбэка
-	virtual void handleEvents( SDL_Event& e ) = 0;
+	virtual void handle_events( SDL_Event& e ) = 0;
 	virtual void update() = 0;
 	virtual void render( SDL_Renderer* renderer ) = 0;
     virtual void enter() = 0;
@@ -24,10 +21,10 @@ public:
 	virtual ~GameState() {}
 
 	// Метод для установки коллбэка
-    void setStateChangeCallback( StateChangeCallback callback ) {
-        stateChangeCallback = std::move( callback );
+    void set_state_change_callback( StateChangeCallback callback ) {
+        state_change_callback = std::move( callback );
     }
 	
 protected:
-    StateChangeCallback stateChangeCallback; // Коллбэк для смены состояния
+    StateChangeCallback state_change_callback; // Коллбэк для смены состояния
 };

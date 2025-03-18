@@ -6,15 +6,15 @@
 
 class StartMenuState : public GameState {
 protected:
-	WindowManager* windowManager;
+	WindowManager* window_manager;
 
 private:
-	StartMenu startMenu;
+	StartMenu m_start_menu;
 
 public:
-	StartMenuState( WindowManager* windowManager, GameState::StateChangeCallback callback );
+	StartMenuState( WindowManager* window_manager, GameState::StateChangeCallback callback );
 
-	void handleEvents( SDL_Event& e );
+	void handle_events( SDL_Event& e );
     void update();
     void render( SDL_Renderer* renderer );
     void enter();

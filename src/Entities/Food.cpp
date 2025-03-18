@@ -1,17 +1,17 @@
 #include "Food.h"
 
 Food::Food( Grid* grid ) : 
-    grid( grid )
+    m_grid( grid )
 {
-    respawnFood();
+    respawn_food();
 }
 
 // Устанавливает еду в случайную позицию на сетке.
 // - Определяет диапазон возможных координат.
 // - Генерирует случайную строку и столбец в пределах сетки.
-void Food::respawnFood() {
-    row = rand() % grid->getCellRows();
-    col = rand() % grid->getCellCols(); 
+void Food::respawn_food() {
+    m_row = rand() % m_grid->get_cell_rows();
+    m_col = rand() % m_grid->get_cell_cols(); 
 }
 
 // Отрисовывает еду на сетке.
@@ -20,19 +20,19 @@ void Food::respawnFood() {
 // - Рисует квадрат, представляющий еду.
 void Food::draw( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 ); // Цвет еды: красный
-    const int grid_border = grid->getGridBorder();
-    const int grid_cell_size = grid->getCellSize();
+    const int grid_border = m_grid->get_grid_border();
+    const int grid_cell_size = m_grid->get_cell_size();
     SDL_Rect rect = { 
-        grid_border + col * grid_cell_size, 
-        grid_border + row * grid_cell_size, 
+        grid_border + m_col * grid_cell_size, 
+        grid_border + m_row * grid_cell_size, 
         grid_cell_size, grid_cell_size };
     SDL_RenderFillRect( renderer, &rect );
 }
 
 // Возвращает строку, в которой расположена еда.
-int Food::getFoodRow() const { return row; }
+int Food::get_food_row() const { return m_row; }
 
 // Возвращает столбец, в котором расположена еда.
-int Food::getFoodCol() const { return col; }
+int Food::get_food_col() const { return m_col; }
 
 Food::~Food() {}

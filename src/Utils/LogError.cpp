@@ -1,5 +1,20 @@
 #include "LogError.h"
 
+// Функция для получения текущего времени в формате "гггг-мм-дд чч:мм:сс"
+// Получаем текущее время
+// Преобразуем в time_t (время в секундах с эпохи Unix)
+// Преобразуем в структуру tm (для форматирования)
+// Используем stringstream для форматирования
+// Формат: "гггг-мм-дд чч:мм:сс"
+std::string getCurrentTime() {
+    auto now = std::chrono::system_clock::now();
+    std::time_t now_time_t = std::chrono::system_clock::to_time_t( now );
+    std::tm now_tm = *std::localtime( &now_time_t );
+    std::stringstream ss;
+    ss << std::put_time( &now_tm, "%Y-%m-%d %H:%M:%S");
+    return ss.str();
+}
+
 // Функция для логирования
 // Получаем текущее время
 // Определяем префикс в зависимости от уровня логирования
@@ -25,19 +40,4 @@ void logError( const std::string& message, LogLevel level ) {
         std::cerr << "[" << time_str << "] " << "[ERROR] Failed to open log file!" << std::endl;
     }
     std::cerr << "[" << time_str << "] " << level_str << message << std::endl;
-}
-
-// Функция для получения текущего времени в формате "гггг-мм-дд чч:мм:сс"
-// Получаем текущее время
-// Преобразуем в time_t (время в секундах с эпохи Unix)
-// Преобразуем в структуру tm (для форматирования)
-// Используем stringstream для форматирования
-// Формат: "гггг-мм-дд чч:мм:сс"
-std::string getCurrentTime() {
-    auto now = std::chrono::system_clock::now();
-    std::time_t now_time_t = std::chrono::system_clock::to_time_t( now );
-    std::tm now_tm = *std::localtime( &now_time_t );
-    std::stringstream ss;
-    ss << std::put_time( &now_tm, "%Y-%m-%d %H:%M:%S");
-    return ss.str();
 }

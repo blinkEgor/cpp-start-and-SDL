@@ -9,18 +9,18 @@
 
 class PlayState : public GameState {
 protected:
-	WindowManager* windowManager;
+	WindowManager* window_manager;
 
 private:
-	Grid grid;
-	Food food;
-	Snake snake;
-    RestartButton restartButton;
+	Grid m_grid;
+	Food m_food;
+	Snake m_snake;
+    RestartButton m_restart_button;
 
 public: 
-	PlayState( WindowManager* windowManager, GameState::StateChangeCallback callback );
+	PlayState( WindowManager* window_manager, GameState::StateChangeCallback callback );
 	
-    void handleEvents( SDL_Event& e );
+    void handle_events( SDL_Event& e );
     void update();
     void render( SDL_Renderer* renderer );
     void enter();

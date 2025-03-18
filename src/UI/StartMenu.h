@@ -4,13 +4,13 @@
 
 class StartMenu {
 private:
-    SDL_Rect button_rect;  // Границы кнопки
-    bool is_clicked; // Флаг нажатия
+    SDL_Rect m_button_rect;  // Границы кнопки
+    bool is_clicked = false; // Флаг нажатия
 
 public:
     StartMenu( int window_width, int window_height );
 
     void draw( SDL_Renderer* renderer );
-    void setClick( int x, int y );
-    bool getIsClicked() const;
+    void set_click( int x, int y );
+    bool get_is_clicked() const;
 };

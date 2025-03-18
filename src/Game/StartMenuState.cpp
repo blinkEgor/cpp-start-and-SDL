@@ -1,20 +1,20 @@
 #include "StartMenuState.h"
 
-StartMenuState::StartMenuState( WindowManager* windowManager, GameState::StateChangeCallback callback ) : 
-    windowManager( windowManager ),
-    startMenu( windowManager->getWidth(), windowManager->getHeight() )
+StartMenuState::StartMenuState( WindowManager* window_manager, GameState::StateChangeCallback callback ) : 
+    window_manager( window_manager ),
+    m_start_menu( window_manager->get_screen_width(), window_manager->get_screen_height() )
 {
-    setStateChangeCallback( callback );
+    set_state_change_callback( callback );
 }
 
 // Отлов пользовательского взаимодействия
 // - Проверяем был ли клик мышкой
 // - - Отлавливаем позицию клика
 // - - И передам позицию функции для смены флага нажатия на кнопку
-void StartMenuState::handleEvents( SDL_Event& e ) {
+void StartMenuState::handle_events( SDL_Event& e ) {
     if (e.type == SDL_MOUSEBUTTONDOWN) {
         int x = e.button.x, y = e.button.y;
-        startMenu.setClick( x, y );
+        m_start_menu.set_click( x, y );
     }
 }
 
@@ -22,9 +22,9 @@ void StartMenuState::handleEvents( SDL_Event& e ) {
 // - Проверяем флаг нажатия на кнопку старта игры
 // - - Используем коллбэк для смены состояния
 void StartMenuState::update() {
-    if ( startMenu.getIsClicked() ) {
-        if ( stateChangeCallback ) {
-            stateChangeCallback( std::make_unique<PlayState>( windowManager, stateChangeCallback ) );
+    if ( m_start_menu.get_is_clicked() ) {
+        if ( state_change_callback ) {
+            state_change_callback( std::make_unique<PlayState>( window_manager, state_change_callback ) );
         }
     }
 }
@@ -33,8 +33,8 @@ void StartMenuState::update() {
 // - Очистка окна чёрным цветом
 // - Рисуем все элементы стартового меню
 void StartMenuState::render( SDL_Renderer* renderer ) {
-    windowManager->clearWindow();
-    startMenu.draw( renderer );
+    window_manager->clear_window();
+    m_start_menu.draw( renderer );
 }
 
 // Вход в игровое состояние StartMenuState

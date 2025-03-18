@@ -1,16 +1,16 @@
 #include "Snake.h"
 
 Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) : 
-    grid( grid ), 
-    food( food ), 
-    last_move_time( 0 ), 
-    move_delay( 200 ), 
-    dx( 0 ), 
-    dy( 0 ),
+    m_grid( grid ), 
+    m_food( food ), 
+    m_last_move_time( 0 ), 
+    m_move_delay( 200 ), 
+    m_direction_x( 0 ), 
+    m_direction_y( 0 ),
     is_eating( false ),
     is_alive( true )
 {
-    segments.push_back( { start_row, start_col } );
+    m_segments.push_back( { start_row, start_col } );
 }
 
 // Перемещает змейку в текущем направлении через заданные интервалы времени (moveDelay).
@@ -19,17 +19,17 @@ Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) :
 // - Обновляет положение змейки, добавляя новую голову и удаляя хвост.
 void Snake::move() {
     Uint32 current_time = SDL_GetTicks();
-    if ( current_time - last_move_time < move_delay ) return;
-    last_move_time = current_time;
+    if ( current_time - m_last_move_time < m_move_delay ) return;
+    m_last_move_time = current_time;
 
-    int rows = grid->getCellRows();
-    int cols = grid->getCellCols();
+    int rows = m_grid->get_cell_rows();
+    int cols = m_grid->get_cell_cols();
 
-    int new_row = ( segments.front().first + dy + rows ) % rows;
-    int new_col = ( segments.front().second + dx + cols ) % cols;
+    int new_row = ( m_segments.front().first + m_direction_y + rows ) % rows;
+    int new_col = ( m_segments.front().second + m_direction_x + cols ) % cols;
 
-    segments.push_front({ new_row, new_col });
-    if ( !is_eating ) segments.pop_back();
+    m_segments.push_front({ new_row, new_col });
+    if ( !is_eating ) m_segments.pop_back();
     is_eating = false;
 }
 
@@ -37,9 +37,9 @@ void Snake::move() {
 // - Если змейка достигла позиции еды, активирует is_eating и вызывает respawnFood() ( Перемещает еду в новую случайную позицию )
 // - Флаг is_eating сообщит move(), что не нужно убирать хвост после следующего движения
 void Snake::grow() {
-    if ( segments.front().first == food->getFoodRow() && segments.front().second == food->getFoodCol() ) {
+    if ( m_segments.front().first == m_food->get_food_row() && m_segments.front().second == m_food->get_food_col() ) {
         is_eating = true;
-        food->respawnFood();
+        m_food->respawn_food();
     }
 }
 
@@ -51,11 +51,11 @@ void Snake::grow() {
 void Snake::draw( SDL_Renderer* renderer ) {
     SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 ); // Цвет змейки: зелёный
 
-    const int grid_border = grid->getGridBorder();
-    const int grid_cell_size = grid->getCellSize();
+    const int grid_border = m_grid->get_grid_border();
+    const int grid_cell_size = m_grid->get_cell_size();
     SDL_Rect rect = { 0, 0, grid_cell_size, grid_cell_size };
 
-    for ( auto& segment : segments ) {
+    for ( auto& segment : m_segments ) {
         rect.x = grid_border + segment.second * grid_cell_size;
         rect.y = grid_border + segment.first * grid_cell_size;
         
@@ -66,10 +66,10 @@ void Snake::draw( SDL_Renderer* renderer ) {
 // Устанавливает новое направление движения змейки.  
 // - Запрещает разворот на 180 градусов (змейка не может двигаться в обратном направлении).  
 // - Обновляет значения dx и dy, задавая новое направление.
-void Snake::setDirection( int new_dx, int new_dy ) {
-    if ( new_dx == -dx && new_dy == -dy ) return; // Запрет разворота на 180 градусов
-    dx = new_dx;
-    dy = new_dy;
+void Snake::set_direction( int new_dx, int new_dy ) {
+    if ( new_dx == -m_direction_x && new_dy == -m_direction_y ) return; // Запрет разворота на 180 градусов
+    m_direction_x = new_dx;
+    m_direction_y = new_dy;
 }
 
 // Проверяем столкновение змейки с самой собой
@@ -77,10 +77,10 @@ void Snake::setDirection( int new_dx, int new_dy ) {
 // - Запоминаем голову змейки
 // - сравниваем позиции сегментов змейки не включая голову первые три сегмента так как они никак столкнуться не могут
 // - Если столкновение есть, то змейка умирает меняя флаг is_alive на false и выходим из функции
-void Snake::checkCollision() {
-    if ( segments.size() >= 4 ) {
-        auto head = segments.front();
-        for ( auto it = segments.begin() + 3; it != segments.end(); ++it ) {
+void Snake::check_collision() {
+    if ( m_segments.size() >= 4 ) {
+        auto head = m_segments.front();
+        for ( auto it = m_segments.begin() + 3; it != m_segments.end(); ++it ) {
             if ( *it == head ) {
                 is_alive = false;
                 return;
@@ -90,8 +90,8 @@ void Snake::checkCollision() {
 }
 
 // Получаем флаг жива змейка или нет
-bool Snake::getIsAlive() const { return is_alive; }
+bool Snake::get_is_alive() const { return is_alive; }
 // Получаем размер змейки
-int Snake::getNumberOfSegments() const { return segments.size(); }
+int Snake::get_number_of_segments() const { return m_segments.size(); }
 
 Snake::~Snake() {}
