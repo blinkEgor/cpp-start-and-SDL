@@ -67,7 +67,6 @@ void GameManager::changeState() {
         }
         currentState = std::move( nextState );
         currentState->enter();
-        nextState = nullptr;
     }
 }
 
