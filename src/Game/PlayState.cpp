@@ -1,13 +1,13 @@
 #include "PlayState.h"
 
-PlayState::PlayState( WindowManager* window_manager, GameState::StateChangeCallback callback ) : 
+PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback ) : 
     window_manager( window_manager ),
     m_grid(),
     m_food( &m_grid ),
     m_snake( &m_grid, &m_food, 5, 5 ),
     m_restart_button( window_manager->get_screen_width(), window_manager->get_screen_height() )
 {
-    set_state_change_callback( callback ); // Устанавливаем коллбэк
+    this->set_next_state_callback( set_next_state_callback ); // Устанавливаем коллбэк
 }
 
 // Отлов пользовательского взаимодействия
@@ -51,8 +51,8 @@ void PlayState::update() {
             logged_death = true;
         }
         if ( m_restart_button.get_is_clicked() ) {
-            if ( state_change_callback ) {
-                state_change_callback( std::make_unique<StartMenuState>( window_manager, state_change_callback ) );
+            if ( m_set_next_state_callback ) {
+                m_set_next_state_callback( std::make_unique<StartMenuState>( window_manager, m_set_next_state_callback ) );
             }
         }
     }

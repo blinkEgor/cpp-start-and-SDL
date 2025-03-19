@@ -10,15 +10,17 @@ private:
 	SDL_Window* m_window = nullptr;
 	SDL_Renderer* m_renderer = nullptr;
 	TTF_Font* m_font = nullptr;
+
 	const int W_POS_X = SDL_WINDOWPOS_UNDEFINED; // Константа для позиции окна по X
 	const int W_POS_Y = SDL_WINDOWPOS_UNDEFINED; // Константа для позиции окна по Y
+	const int D_INDEX = -1; // Индекс драйвера рендерера
+	const Uint32 R_FLAGS = SDL_RENDERER_ACCELERATED; // Флаги рендерера
+	const Uint32 W_FLAGS = SDL_WINDOW_SHOWN; // Флаги рендерера
+	
 	std::string m_title;
 	int m_screen_width;
 	int m_screen_height;
-	const int D_INDEX = -1; // Индекс драйвера рендерера
 	Uint8 m_r = 0, m_g = 0, m_b = 0, m_a = 255; // Цвет фона (чёрный)
-	const Uint32 R_FLAGS = SDL_RENDERER_ACCELERATED; // Флаги рендерера
-	const Uint32 W_FLAGS = SDL_WINDOW_SHOWN; // Флаги рендерера
 
 public:
 	// Конструктор

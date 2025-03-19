@@ -12,7 +12,7 @@ protected:
 	WindowManager* window_manager;
 
 public:
-    using StateChangeCallback = std::function< void( std::unique_ptr<GameState> ) >; // Определяем тип коллбэка
+    using NextStateCallback = std::function< void( std::unique_ptr<GameState> ) >; // Определяем тип коллбэка
 	virtual void handle_events( SDL_Event& e ) = 0;
 	virtual void update() = 0;
 	virtual void render( SDL_Renderer* renderer ) = 0;
@@ -21,10 +21,10 @@ public:
 	virtual ~GameState() {}
 
 	// Метод для установки коллбэка
-    void set_state_change_callback( StateChangeCallback callback ) {
-        state_change_callback = std::move( callback );
+    void set_next_state_callback( NextStateCallback set_next_state_callback ) {
+        m_set_next_state_callback = std::move( set_next_state_callback );
     }
 	
 protected:
-    StateChangeCallback state_change_callback; // Коллбэк для смены состояния
+    NextStateCallback m_set_next_state_callback; // Коллбэк для установки нового сотояния
 };

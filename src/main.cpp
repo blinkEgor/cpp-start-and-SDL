@@ -3,15 +3,15 @@
 #include "Game/GameManager.h"
 
 int main( int /*argc*/, char** /*args[]*/ ) {
-	WindowManager WindowManager( "Snake", 32*24+32, 32*16+32 );
+	WindowManager window_manager( "Snake", 32*24+32, 32*16+32 );
 	
-	if( !WindowManager.init() ) {
+	if( !window_manager.init() ) {
 		logError( "Failed to initialize WindowManager", LogLevel::ERROR );
 		return -1;
 	}
 	else {
-		GameManager GameManager( &WindowManager );
-		GameManager.game_loop();
+		GameManager game_manager( &window_manager );
+		game_manager.game_loop();
 	}
 	return 0;
 }

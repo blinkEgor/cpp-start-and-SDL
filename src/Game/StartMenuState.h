@@ -7,12 +7,13 @@
 class StartMenuState : public GameState {
 protected:
 	WindowManager* window_manager;
+    // m_set_next_state_callback доступен через наследование от GameState
 
 private:
 	StartMenu m_start_menu;
 
 public:
-	StartMenuState( WindowManager* window_manager, GameState::StateChangeCallback callback );
+	StartMenuState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback );
 
 	void handle_events( SDL_Event& e );
     void update();

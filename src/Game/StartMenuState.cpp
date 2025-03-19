@@ -1,10 +1,10 @@
 #include "StartMenuState.h"
 
-StartMenuState::StartMenuState( WindowManager* window_manager, GameState::StateChangeCallback callback ) : 
+StartMenuState::StartMenuState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback ) : 
     window_manager( window_manager ),
     m_start_menu( window_manager->get_screen_width(), window_manager->get_screen_height() )
 {
-    set_state_change_callback( callback );
+    this->set_next_state_callback( set_next_state_callback );
 }
 
 // Отлов пользовательского взаимодействия
@@ -23,8 +23,8 @@ void StartMenuState::handle_events( SDL_Event& e ) {
 // - - Используем коллбэк для смены состояния
 void StartMenuState::update() {
     if ( m_start_menu.get_is_clicked() ) {
-        if ( state_change_callback ) {
-            state_change_callback( std::make_unique<PlayState>( window_manager, state_change_callback ) );
+        if ( m_set_next_state_callback ) {
+            m_set_next_state_callback( std::make_unique<PlayState>( window_manager, m_set_next_state_callback ) );
         }
     }
 }
