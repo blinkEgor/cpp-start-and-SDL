@@ -6,9 +6,16 @@ Grid::Grid() :
     m_cell_cols( 24 ), 
     m_grid_border( 16 ), 
     m_grid_rows_size( m_cell_size * m_cell_rows + 2 * m_grid_border ), 
-    m_grid_cols_size( m_cell_size * m_cell_cols + 2 * m_grid_border ), 
-    m_grid( m_cell_rows, std::vector<int>( m_cell_cols, 0 ) ) 
-{}
+    m_grid_cols_size( m_cell_size * m_cell_cols + 2 * m_grid_border )
+{
+    m_grid_field.resize( m_cell_rows, std::vector< std::pair< int, int >>( m_cell_cols ) );
+
+    for ( int r = 0; r < m_cell_rows; ++r ) {
+        for ( int c = 0; c < m_cell_cols; ++c ) {
+            m_grid_field[ r ][ c ] = std::make_pair( m_grid_border + m_cell_size * c, m_grid_border + m_cell_size * r );
+        }
+    }
+}
 
 // Рисует сетку
 // Цвет сетки
@@ -28,9 +35,9 @@ void Grid::draw_grid( SDL_Renderer* renderer ) {
 int Grid::get_cell_size() const { return m_cell_size; }
 // Получаем толщину отступа вокруг сетки в пикселях
 int Grid::get_grid_border() const { return m_grid_border; }
-// Колическтво клеток по ширине
+// Колическтво клеток по высоте
 int Grid::get_cell_rows() const { return m_cell_rows; }
-// Количество клеток по высоте
+// Количество клеток по ширине
 int Grid::get_cell_cols() const { return m_cell_cols; }
 
 Grid::~Grid() {}

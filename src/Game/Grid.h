@@ -7,14 +7,14 @@
 class Grid {
 private:
     const int m_cell_size; // Размер одной клетки в пикселях
-    const int m_cell_rows; // Количество клеток по ширине
-    const int m_cell_cols; // Количество клеток по высоте
+    const int m_cell_rows; // Количество клеток по высоте
+    const int m_cell_cols; // Количество клеток по ширине
     const int m_grid_border; // Отступ вокруг сетки
     const int m_grid_rows_size; // Общий размер строки в пикселях
     const int m_grid_cols_size; // Общий размер колонки в пикселях
 
     // Двумерный вектор для хранения состояния клеток
-    std::vector<std::vector<int>> m_grid;
+    std::vector< std::vector< std::pair< int, int >>> m_grid_field;
 
 public:
     Grid();
