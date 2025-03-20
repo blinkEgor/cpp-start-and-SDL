@@ -2,26 +2,26 @@
 #include <iostream>
 #include <deque>
 #include <SDL2/SDL.h>
+#include "../Utils/Utils.h"
 #include "../Game/Grid.h"
 #include "Food.h"
 
 class Snake {
 private:
     std::deque<std::pair<int, int>> m_segments;
-    Grid* m_grid;
     Food* m_food;
     Uint32 m_last_move_time; // Время последнего хода змейки
     Uint32 m_move_delay; // Задержка между ходами (мс)
-    int m_direction_x, m_direction_y; // Текущее направление движения
+    std::pair< int, int > m_direction; // Текущее направление движения
     bool is_eating; // Флаг, едим или нет?
     bool is_alive; // Флаг, змейка жива?
 
 public:
-    Snake( Grid* grid, Food* food, int start_row, int start_col );
-    void move();
+    Snake( Food* food, int start_row, int start_col );
+    void move( std::vector< std::vector< std::pair< int, int >>>& grid_field );
     void grow();
-    void draw( SDL_Renderer* renderer );
-    void set_direction( int new_dx, int new_dy );
+    void draw( SDL_Renderer* renderer, int grid_cell_size, int grid_border );
+    void set_direction( std::pair< int, int > new_direction );
     void check_collision();
     bool get_is_alive() const;
     int get_number_of_segments() const;

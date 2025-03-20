@@ -39,5 +39,7 @@ int Grid::get_grid_border() const { return m_grid_border; }
 int Grid::get_cell_rows() const { return m_cell_rows; }
 // Количество клеток по ширине
 int Grid::get_cell_cols() const { return m_cell_cols; }
+// Ссылка на двумерный вектор с парами значений координат Y, X
+std::vector< std::vector< std::pair< int, int >>>& Grid::get_grid_field() { return m_grid_field; }
 
 Grid::~Grid() {}

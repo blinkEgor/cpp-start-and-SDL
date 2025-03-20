@@ -23,5 +23,6 @@ public:
     int get_grid_border() const;
     int get_cell_rows() const;
     int get_cell_cols() const;
+    std::vector< std::vector< std::pair< int, int >>>& get_grid_field();
     ~Grid();
 };

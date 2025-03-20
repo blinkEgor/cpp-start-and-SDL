@@ -1,12 +1,10 @@
 #include "Snake.h"
 
-Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) : 
-    m_grid( grid ), 
+Snake::Snake( Food* food, int start_row, int start_col ) :  
     m_food( food ), 
     m_last_move_time( 0 ), 
     m_move_delay( 200 ), 
-    m_direction_x( 0 ), 
-    m_direction_y( 0 ),
+    m_direction( { 0, 0 } ),
     is_eating( false ),
     is_alive( true )
 {
@@ -17,18 +15,15 @@ Snake::Snake( Grid* grid, Food* food, int start_row, int start_col ) :
 // - Проверяет, прошло ли достаточно времени с последнего перемещения.
 // - Вычисляет новую позицию головы, учитывая переход через границы сетки.
 // - Обновляет положение змейки, добавляя новую голову и удаляя хвост.
-void Snake::move() {
+void Snake::move( std::vector< std::vector< std::pair< int, int >>>& grid_field ) {
     Uint32 current_time = SDL_GetTicks();
     if ( current_time - m_last_move_time < m_move_delay ) return;
     m_last_move_time = current_time;
+    
+    std::pair< int, int > grid_sell_position = { grid_field.size(), grid_field[0].size() };
+    std::pair< int, int > new_position = ( m_segments.front() + m_direction + grid_sell_position ) % grid_sell_position;
 
-    int rows = m_grid->get_cell_rows();
-    int cols = m_grid->get_cell_cols();
-
-    int new_row = ( m_segments.front().first + m_direction_y + rows ) % rows;
-    int new_col = ( m_segments.front().second + m_direction_x + cols ) % cols;
-
-    m_segments.push_front({ new_row, new_col });
+    m_segments.push_front( new_position );
     if ( !is_eating ) m_segments.pop_back();
     is_eating = false;
 }
@@ -45,19 +40,15 @@ void Snake::grow() {
 
 // Отрисовывает змейку на экране, заполняя её сегменты зелёным цветом.
 // - Устанавливает цвет рисования (зелёный).
-// - Кэширует часто используемые вызовы функций и объекта
 // - Проходит по всем сегментам змейки, рассчитывая их положение в пикселях с учётом отступа сетки.
 // - Рисует каждый сегмент в виде квадрата, соответствующего размеру клетки.
-void Snake::draw( SDL_Renderer* renderer ) {
+void Snake::draw( SDL_Renderer* renderer, int grid_cell_size, int grid_border ) {
     SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 ); // Цвет змейки: зелёный
-
-    const int grid_border = m_grid->get_grid_border();
-    const int grid_cell_size = m_grid->get_cell_size();
     SDL_Rect rect = { 0, 0, grid_cell_size, grid_cell_size };
 
     for ( auto& segment : m_segments ) {
-        rect.x = grid_border + segment.second * grid_cell_size;
-        rect.y = grid_border + segment.first * grid_cell_size;
+        rect.y = segment.first * grid_cell_size + grid_border;
+        rect.x = segment.second * grid_cell_size + grid_border;
         
         SDL_RenderFillRect( renderer, &rect );
     }
@@ -66,10 +57,9 @@ void Snake::draw( SDL_Renderer* renderer ) {
 // Устанавливает новое направление движения змейки.  
 // - Запрещает разворот на 180 градусов (змейка не может двигаться в обратном направлении).  
 // - Обновляет значения dx и dy, задавая новое направление.
-void Snake::set_direction( int new_dx, int new_dy ) {
-    if ( new_dx == -m_direction_x && new_dy == -m_direction_y ) return; // Запрет разворота на 180 градусов
-    m_direction_x = new_dx;
-    m_direction_y = new_dy;
+void Snake::set_direction( std::pair< int, int > new_direction ) {
+    if ( is_opposite( new_direction, m_direction ) ) return; // Запрет разворота на 180 градусов
+    m_direction = new_direction;
 }
 
 // Проверяем столкновение змейки с самой собой

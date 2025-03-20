@@ -4,7 +4,7 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
     window_manager( window_manager ),
     m_grid(),
     m_food( &m_grid ),
-    m_snake( &m_grid, &m_food, 5, 5 ),
+    m_snake( &m_food, 5, 5 ),
     m_restart_button( window_manager->get_screen_width(), window_manager->get_screen_height() )
 {
     this->set_next_state_callback( set_next_state_callback ); // Устанавливаем коллбэк
@@ -20,10 +20,10 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
 void PlayState::handle_events( SDL_Event& e ) {
     if ( e.type == SDL_KEYDOWN ) {
         switch ( e.key.keysym.sym ) {
-            case SDLK_w: m_snake.set_direction( 0, -1 ); break;
-            case SDLK_s: m_snake.set_direction( 0, 1 );  break;
-            case SDLK_a: m_snake.set_direction( -1, 0 ); break;
-            case SDLK_d: m_snake.set_direction( 1, 0 );  break;
+            case SDLK_w: m_snake.set_direction( { -1, 0 } ); break;
+            case SDLK_s: m_snake.set_direction( { 1, 0 } );  break;
+            case SDLK_a: m_snake.set_direction( { 0, -1 } ); break;
+            case SDLK_d: m_snake.set_direction( { 0, 1 } );  break;
         }
     }
     if ( !m_snake.get_is_alive() ) {
@@ -42,7 +42,7 @@ void PlayState::update() {
     static bool logged_death = false;
     if ( m_snake.get_is_alive() ) {
         m_snake.check_collision();
-        m_snake.move();
+        m_snake.move( m_grid.get_grid_field() );
         m_snake.grow();
         logged_death = false;
     } else {
@@ -68,7 +68,7 @@ void PlayState::render( SDL_Renderer* renderer ) {
     window_manager->clear_window();
     m_grid.draw_grid( renderer );
     m_food.draw( renderer );
-    m_snake.draw( renderer );
+    m_snake.draw( renderer, m_grid.get_cell_size(), m_grid.get_grid_border() );
     if ( !m_snake.get_is_alive() ) {
         m_restart_button.draw( renderer );
     }
