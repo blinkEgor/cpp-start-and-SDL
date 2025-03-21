@@ -14,8 +14,8 @@ protected:
 
 private:
 	Grid m_grid;
-	Food m_food;
 	Snake m_snake;
+	Food m_food;
     RestartButton m_restart_button;
 
 public: 

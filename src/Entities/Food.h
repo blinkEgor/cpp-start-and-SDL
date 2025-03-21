@@ -1,17 +1,19 @@
 #pragma once
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "../Game/Grid.h"
+#include <vector>
+#include <deque>
+#include <algorithm>
+
+#include "../Utils/Utils.h"
 
 class Food {
 private:
-    Grid* m_grid; // Ссылка на сетку
-    int m_row, m_col; // Позиция еды на сетке строка и столбец
+    std::pair< int, int > m_position = { 0, 0 }; // Позиция еды на сетке
 public:
-    Food( Grid* grid );
-    void respawn_food(); // Перемещает еду в случайную позицию
-    void draw( SDL_Renderer* renderer ); // Отрисовка еды
-    int get_food_row() const;
-    int get_food_col() const;
+    Food( std::pair< int, int > start_position );
+    void respawn_food( std::vector< std::vector< std::pair< int, int >>>& grid_field, std::deque< std::pair< int, int >>& snake_segments ); // Перемещает еду в случайную позицию
+    void draw( SDL_Renderer* renderer, int grid_cell_size, int grid_border ); // Отрисовка еды
+    std::pair< int, int > get_food_position() const;
     ~Food();
 };

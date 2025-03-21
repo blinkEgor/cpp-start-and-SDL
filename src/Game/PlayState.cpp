@@ -3,8 +3,8 @@
 PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback ) : 
     window_manager( window_manager ),
     m_grid(),
-    m_food( &m_grid ),
-    m_snake( &m_food, 5, 5 ),
+    m_snake( { 5, 5 } ),
+    m_food( { 8, 8 } ),
     m_restart_button( window_manager->get_screen_width(), window_manager->get_screen_height() )
 {
     this->set_next_state_callback( set_next_state_callback ); // Устанавливаем коллбэк
@@ -43,7 +43,9 @@ void PlayState::update() {
     if ( m_snake.get_is_alive() ) {
         m_snake.check_collision();
         m_snake.move( m_grid.get_grid_field() );
-        m_snake.grow();
+        if ( m_snake.grow( m_food.get_food_position() ) ) {
+            m_food.respawn_food( m_grid.get_grid_field(), m_snake.get_snake_segments() );
+        }
         logged_death = false;
     } else {
         if ( !logged_death ) {
@@ -67,7 +69,7 @@ void PlayState::update() {
 void PlayState::render( SDL_Renderer* renderer ) {
     window_manager->clear_window();
     m_grid.draw_grid( renderer );
-    m_food.draw( renderer );
+    m_food.draw( renderer, m_grid.get_cell_size(), m_grid.get_grid_border() );
     m_snake.draw( renderer, m_grid.get_cell_size(), m_grid.get_grid_border() );
     if ( !m_snake.get_is_alive() ) {
         m_restart_button.draw( renderer );

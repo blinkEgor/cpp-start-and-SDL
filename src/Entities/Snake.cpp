@@ -1,14 +1,13 @@
 #include "Snake.h"
 
-Snake::Snake( Food* food, int start_row, int start_col ) :  
-    m_food( food ), 
+Snake::Snake( std::pair< int, int > start_position ) : 
     m_last_move_time( 0 ), 
     m_move_delay( 200 ), 
     m_direction( { 0, 0 } ),
     is_eating( false ),
     is_alive( true )
 {
-    m_segments.push_back( { start_row, start_col } );
+    m_segments.push_back( start_position );
 }
 
 // Перемещает змейку в текущем направлении через заданные интервалы времени (moveDelay).
@@ -31,10 +30,12 @@ void Snake::move( std::vector< std::vector< std::pair< int, int >>>& grid_field 
 // Проверяет, находится ли голова змейки на позиции еды ( съела ли змейка еду ).
 // - Если змейка достигла позиции еды, активирует is_eating и вызывает respawnFood() ( Перемещает еду в новую случайную позицию )
 // - Флаг is_eating сообщит move(), что не нужно убирать хвост после следующего движения
-void Snake::grow() {
-    if ( m_segments.front().first == m_food->get_food_row() && m_segments.front().second == m_food->get_food_col() ) {
+bool Snake::grow( std::pair< int, int > food_position ) {
+    if ( m_segments.front() == food_position ) {
         is_eating = true;
-        m_food->respawn_food();
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -58,7 +59,7 @@ void Snake::draw( SDL_Renderer* renderer, int grid_cell_size, int grid_border ) 
 // - Запрещает разворот на 180 градусов (змейка не может двигаться в обратном направлении).  
 // - Обновляет значения dx и dy, задавая новое направление.
 void Snake::set_direction( std::pair< int, int > new_direction ) {
-    if ( is_opposite( new_direction, m_direction ) ) return; // Запрет разворота на 180 градусов
+    if ( is_opposite_pair( new_direction, m_direction ) ) return; // Запрет разворота на 180 градусов
     m_direction = new_direction;
 }
 
@@ -83,5 +84,7 @@ void Snake::check_collision() {
 bool Snake::get_is_alive() const { return is_alive; }
 // Получаем размер змейки
 int Snake::get_number_of_segments() const { return m_segments.size(); }
+// Получаем ссылку на массив с позициями змейки на поле сетки
+std::deque< std::pair< int, int >>& Snake::get_snake_segments() { return m_segments; }
 
 Snake::~Snake() {}
