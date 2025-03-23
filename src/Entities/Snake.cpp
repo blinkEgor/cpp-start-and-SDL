@@ -19,8 +19,8 @@ void Snake::move( std::vector< std::vector< std::pair< int, int >>>& grid_field 
     if ( current_time - m_last_move_time < m_move_delay ) return;
     m_last_move_time = current_time;
     
-    std::pair< int, int > grid_sell_position = { grid_field.size(), grid_field[0].size() };
-    std::pair< int, int > new_position = ( m_segments.front() + m_direction + grid_sell_position ) % grid_sell_position;
+    std::pair< int, int > grid_cell_position = { grid_field.size(), grid_field[0].size() };
+    std::pair< int, int > new_position = ( m_segments.front() + m_direction + grid_cell_position ) % grid_cell_position;
 
     m_segments.push_front( new_position );
     if ( !is_eating ) m_segments.pop_back();
