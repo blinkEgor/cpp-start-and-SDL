@@ -86,5 +86,7 @@ bool Snake::get_is_alive() const { return is_alive; }
 int Snake::get_number_of_segments() const { return m_segments.size(); }
 // Получаем ссылку на массив с позициями змейки на поле сетки
 std::deque< std::pair< int, int >>& Snake::get_snake_segments() { return m_segments; }
+// Получить направление движения змейки
+std::pair< int, int > Snake::get_snake_direction() const { return m_direction; }
 
 Snake::~Snake() {}

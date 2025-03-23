@@ -25,5 +25,6 @@ public:
     bool get_is_alive() const;
     int get_number_of_segments() const;
     std::deque< std::pair< int, int >>& get_snake_segments();
+    std::pair< int, int > get_snake_direction() const;
     ~Snake();
 };
