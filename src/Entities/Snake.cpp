@@ -8,6 +8,8 @@ Snake::Snake( std::pair< int, int > start_position ) :
     is_alive( true )
 {
     m_segments.push_back( start_position );
+    m_segments.push_back( { start_position.first, start_position.second - 1 } );
+    m_segments.push_back( { start_position.first, start_position.second - 2 } );
 }
 
 // Перемещает змейку в текущем направлении через заданные интервалы времени (moveDelay).

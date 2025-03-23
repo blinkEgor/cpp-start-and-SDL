@@ -42,7 +42,9 @@ void PlayState::update() {
     static bool logged_death = false;
     if ( m_snake.get_is_alive() ) {
         m_snake.check_collision();
-        m_snake.move( m_grid.get_grid_field() );
+        if ( !is_equal_pair( m_snake.get_snake_direction(), { 0, 0 } ) ) {
+            m_snake.move( m_grid.get_grid_field() );
+        }
         if ( m_snake.grow( m_food.get_food_position() ) ) {
             m_food.respawn_food( m_grid.get_grid_field(), m_snake.get_snake_segments() );
         }
