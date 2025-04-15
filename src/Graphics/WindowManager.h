@@ -30,6 +30,7 @@ public:
 	bool init();
 	SDL_Window* get_window() const;
 	SDL_Renderer* get_renderer() const;
+	TTF_Font* get_font() const;
 	int get_screen_width() const;
 	int get_screen_height() const;
 	void set_color( Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha = 255 );

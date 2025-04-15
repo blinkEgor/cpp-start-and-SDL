@@ -59,6 +59,8 @@ bool WindowManager::init() {
 SDL_Window* WindowManager::get_window() const { return m_window; }
 // get renderer
 SDL_Renderer* WindowManager::get_renderer() const { return m_renderer; }
+// get font 
+TTF_Font* WindowManager::get_font() const { return m_font; }
 // get window width
 int WindowManager::get_screen_width() const { return m_screen_width; }
 // get window height
