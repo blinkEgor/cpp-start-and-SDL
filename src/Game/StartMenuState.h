@@ -10,7 +10,7 @@ protected:
     // m_set_next_state_callback доступен через наследование от GameState
 
 private:
-	StartMenu m_start_menu;
+	// StartMenu m_start_menu;
 
 public:
 	StartMenuState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback );
