@@ -5,7 +5,7 @@
 #include "Grid.h"
 #include "../Entities/Snake.h"
 #include "../Entities/Food.h"
-#include "../UI/RestartButton.h"
+#include "../UI/Button.h"
 #include "../Utils/Utils.h"
 
 class PlayState : public GameState {
