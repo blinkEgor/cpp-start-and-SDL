@@ -4,8 +4,8 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
     window_manager( window_manager ),
     m_grid(),
     m_snake( { 5, 5 } ),
-    m_food( { 8, 8 } ),
-    m_restart_button( window_manager->get_screen_width(), window_manager->get_screen_height() )
+    m_food( { 8, 8 } )//,
+    // m_restart_button( window_manager->get_screen_width(), window_manager->get_screen_height() )
 {
     this->set_next_state_callback( set_next_state_callback ); // Устанавливаем коллбэк
 }
@@ -26,12 +26,12 @@ void PlayState::handle_events( SDL_Event& e ) {
             case SDLK_d: m_snake.set_direction( { 0, 1 } );  break;
         }
     }
-    if ( !m_snake.get_is_alive() ) {
-        if ( e.type == SDL_MOUSEBUTTONDOWN ) {
-            int x = e.button.x, y = e.button.y;
-            m_restart_button.set_click( x, y );
-        }
-    }
+    // if ( !m_snake.get_is_alive() ) {
+    //     if ( e.type == SDL_MOUSEBUTTONDOWN ) {
+    //         int x = e.button.x, y = e.button.y;
+    //         m_restart_button.set_click( x, y );
+    //     }
+    // }
 }
 
 // Обновляет логику игры:
@@ -54,11 +54,11 @@ void PlayState::update() {
             logError( "Snake is died", LogLevel::INFO );
             logged_death = true;
         }
-        if ( m_restart_button.get_is_clicked() ) {
+        // if ( m_restart_button.get_is_clicked() ) {
             if ( m_set_next_state_callback ) {
                 m_set_next_state_callback( std::make_unique<StartMenuState>( window_manager, m_set_next_state_callback ) );
             }
-        }
+        // }
     }
 }
 
@@ -73,9 +73,9 @@ void PlayState::render( SDL_Renderer* renderer ) {
     m_grid.draw_grid( renderer );
     m_food.draw( renderer, m_grid.get_cell_size(), m_grid.get_grid_border() );
     m_snake.draw( renderer, m_grid.get_cell_size(), m_grid.get_grid_border() );
-    if ( !m_snake.get_is_alive() ) {
-        m_restart_button.draw( renderer );
-    }
+    // if ( !m_snake.get_is_alive() ) {
+    //     m_restart_button.draw( renderer );
+    // }
 }
 
 // Вход в игровое состояние PlayState

@@ -17,7 +17,7 @@ private:
 	Grid m_grid;
 	Snake m_snake;
 	Food m_food;
-    RestartButton m_restart_button;
+    // RestartButton m_restart_button;
 
 public: 
 	PlayState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback );
