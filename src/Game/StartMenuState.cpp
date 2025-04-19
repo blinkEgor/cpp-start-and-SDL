@@ -12,6 +12,7 @@ StartMenuState::StartMenuState( WindowManager* window_manager, GameState::NextSt
 // - - Отлавливаем позицию клика
 // - - И передам позицию функции для смены флага нажатия на кнопку
 void StartMenuState::handle_events( SDL_Event& e ) {
+    m_start_menu.handle_input( e );
     // if (e.type == SDL_MOUSEBUTTONDOWN) {
     //     int x = e.button.x, y = e.button.y;
     //     m_start_menu.set_click( x, y );

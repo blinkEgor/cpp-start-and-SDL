@@ -28,6 +28,24 @@ StartMenu::StartMenu( std::pair< int, int > window_size )
     // ...
 }
 
+// Обработчик ивентов стартового меню
+void StartMenu::handle_input( SDL_Event& e ) {
+    if ( e.type == SDL_MOUSEBUTTONDOWN ) {
+        std::pair< int, int > mouse_pos = { e.button.x, e.button.y };
+        logError( "Mouse button was pressed on position x:" + std::to_string( mouse_pos.first ) + " y:" + std::to_string( mouse_pos.second ), LogLevel::INFO );
+        return;
+    }
+    else if ( e.type == SDL_KEYDOWN ) {
+        if ( e.key.keysym.sym == SDLK_SPACE ) {
+            logError( "Space was pressed", LogLevel::INFO );
+            return;
+        }
+        if ( e.key.keysym.sym == SDLK_RETURN ) {
+            logError( "Enter was pressed", LogLevel::INFO );
+        }
+    }
+}
+
 // Рисуем все элементы стартового меню
 // - Устанавливаем цвет кнопки на зелёный
 // - Рисуем саму кнопку в центре экрана
