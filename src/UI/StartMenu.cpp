@@ -1,32 +1,36 @@
 #include "StartMenu.h"
 
-StartMenu::StartMenu( int window_width, int window_height )
+StartMenu::StartMenu( std::pair< int, int > window_size )
 {
-    m_button_rect.w = 200;
-    m_button_rect.h = 50;
-    m_button_rect.x = ( window_width - m_button_rect.w ) / 2;
-    m_button_rect.y = ( window_height - m_button_rect.h ) / 2;
+    // Палитра цветов
+    SDL_Color white = { 255, 255, 255, 255 };
+    SDL_Color green = { 0, 255, 0, 255 };
+
+    // Размеры элементов
+    SDL_Rect rect;
+
+    // Реализация одного элемента
+    rect.w = 200;
+    rect.h = 50;
+    m_start_button = Button( 
+        { 
+            ( window_size.first - rect.w ) / 2, 
+            ( window_size.second - rect.h ) / 2, 
+            rect.w, 
+            rect.h 
+        }, 
+        green, 
+        white, 
+        "Start" 
+    );
+
+    // Будет реализация другого элемента когда он разработается
+    // ...
 }
 
 // Рисуем все элементы стартового меню
 // - Устанавливаем цвет кнопки на зелёный
 // - Рисуем саму кнопку в центре экрана
 void StartMenu::draw( SDL_Renderer* renderer ) {
-    SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 ); // Зелёный цвет
-    SDL_RenderFillRect( renderer, &m_button_rect );
+    m_start_button.draw( renderer );
 }
-
-// Флаг нажатия на кнопку
-// - Если координаты мышки находятся в пределах кнопки, то
-// - - Меняем значение флага на true
-void StartMenu::set_click( int x, int y ) {
-    if ( x >= m_button_rect.x && x <= m_button_rect.x + m_button_rect.w /* Проверка по ширине */ && 
-         y >= m_button_rect.y && y <= m_button_rect.y + m_button_rect.h /* Проверка по высоте */ ) {
-        is_clicked = true;
-    }
-}
-
-// Получаем флаг нажатия на кнопку
-// - если false, то не нажата
-// - если true, то нажата
-bool StartMenu::get_is_clicked() const { return is_clicked; }

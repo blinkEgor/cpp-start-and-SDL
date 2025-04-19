@@ -12,20 +12,6 @@ Button::Button(
     m_text( text )
 {}
 
-// Рисуем кнопку рестарта
-// - Устанавливаем цвет кнопки на зелёный
-// - Рисуем саму кнопку в центре экрана
-void Button::draw( SDL_Renderer* renderer ) {
-    SDL_SetRenderDrawColor(
-        renderer, 
-        m_background_color.r,    // Красный компонент
-        m_background_color.g,    // Зеленый компонент
-        m_background_color.b,    // Синий компонент
-        0                      // Альфа (непрозрачность)
-    );
-    SDL_RenderFillRect( renderer, &m_button_rect );
-}
-
 // Флаг нажатия на кнопку
 // - Если координаты мышки находятся в пределах кнопки, то
 // - - Меняем значение флага на true
@@ -38,6 +24,20 @@ void Button::set_click( std::pair< int, int > click_position ) {
         ) {
         is_clicked = true;
     }
+}
+
+// Рисуем кнопку рестарта
+// - Устанавливаем цвет кнопки на зелёный
+// - Рисуем саму кнопку в центре экрана
+void Button::draw( SDL_Renderer* renderer ) {
+    SDL_SetRenderDrawColor(
+        renderer, 
+        m_background_color.r,    // Красный компонент
+        m_background_color.g,    // Зеленый компонент
+        m_background_color.b,    // Синий компонент
+        m_background_color.a     // Альфа (непрозрачность)
+    );
+    SDL_RenderFillRect( renderer, &m_button_rect );
 }
 
 // Возвращает кнопку в состояние "не нажата"

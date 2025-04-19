@@ -1,16 +1,13 @@
 #pragma once
-
 #include <SDL2/SDL.h>
+#include "Button.h"
 
 class StartMenu {
 private:
-    SDL_Rect m_button_rect;  // Границы кнопки
-    bool is_clicked = false; // Флаг нажатия
+    Button m_start_button;
 
 public:
-    StartMenu( int window_width, int window_height );
+    StartMenu( std::pair< int, int > );
 
     void draw( SDL_Renderer* renderer );
-    void set_click( int x, int y );
-    bool get_is_clicked() const;
 };
