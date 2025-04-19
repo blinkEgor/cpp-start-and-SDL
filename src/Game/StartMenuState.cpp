@@ -13,17 +13,13 @@ StartMenuState::StartMenuState( WindowManager* window_manager, GameState::NextSt
 // - - И передам позицию функции для смены флага нажатия на кнопку
 void StartMenuState::handle_events( SDL_Event& e ) {
     m_start_menu.handle_input( e );
-    // if (e.type == SDL_MOUSEBUTTONDOWN) {
-    //     int x = e.button.x, y = e.button.y;
-    //     m_start_menu.set_click( x, y );
-    // }
 }
 
 // Обновление логики StartMenuState
 // - Проверяем флаг нажатия на кнопку старта игры
 // - - Используем коллбэк для смены состояния
 void StartMenuState::update() {
-    if ( false ) {
+    if ( m_start_menu.is_active_button() ) {
         if ( m_set_next_state_callback ) {
             m_set_next_state_callback( std::make_unique<PlayState>( window_manager, m_set_next_state_callback ) );
         }

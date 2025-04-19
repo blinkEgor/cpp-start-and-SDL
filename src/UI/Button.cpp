@@ -13,16 +13,25 @@ Button::Button(
 {}
 
 // Флаг нажатия на кнопку
+void Button::set_click() { is_clicked = true; }
+// Возвращает кнопку в состояние "не нажата"
+void Button::reset_click() { is_clicked = false; }
+
+// Получаем флаг нажатия на кнопку
+// - если false, то не нажата
+// - если true, то нажата
+bool Button::get_is_clicked() const { return is_clicked; }
+
 // - Если координаты мышки находятся в пределах кнопки, то
 // - - Меняем значение флага на true
-void Button::set_click( std::pair< int, int > click_position ) {
+void Button::check_click_button( std::pair< int, int > click_position ) {
     if ( click_position.first >= m_button_rect.x 
          && click_position.first <= m_button_rect.x + m_button_rect.w /* Проверка по ширине */ 
          && 
          click_position.second >= m_button_rect.y 
          && click_position.second <= m_button_rect.y + m_button_rect.h /* Проверка по высоте */ 
         ) {
-        is_clicked = true;
+        set_click();
     }
 }
 
@@ -39,11 +48,3 @@ void Button::draw( SDL_Renderer* renderer ) {
     );
     SDL_RenderFillRect( renderer, &m_button_rect );
 }
-
-// Возвращает кнопку в состояние "не нажата"
-void Button::reset_click() { is_clicked = false; }
-
-// Получаем флаг нажатия на кнопку
-// - если false, то не нажата
-// - если true, то нажата
-bool Button::get_is_clicked() const { return is_clicked; }

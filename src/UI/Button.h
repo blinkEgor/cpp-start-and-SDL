@@ -18,8 +18,9 @@ public:
         SDL_Color text_color = { 255, 255, 255, 255 },
         std::string text = "text"
     );
-    void draw( SDL_Renderer* renderer );
-    void set_click( std::pair< int, int > click_position );
+    void set_click();
     void reset_click();
     bool get_is_clicked() const;
+    void check_click_button( std::pair< int, int > click_position );
+    void draw( SDL_Renderer* renderer );
 };
