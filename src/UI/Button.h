@@ -14,8 +14,8 @@ private:
 public:
     Button(
         SDL_Rect button_rect = { 0, 0, 30, 10 },
-        SDL_Color background_color = { 0, 255, 0, 0 },
-        SDL_Color text_color = { 255, 255, 255, 0 },
+        SDL_Color background_color = { 0, 255, 0 },
+        SDL_Color text_color = { 255, 255, 255 },
         std::string text = "text"
     );
     void draw( SDL_Renderer* renderer );
