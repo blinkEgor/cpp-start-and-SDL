@@ -34,10 +34,14 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
 void PlayState::handle_events( SDL_Event& e ) {
     if ( e.type == SDL_KEYDOWN ) {
         switch ( e.key.keysym.sym ) {
-            case SDLK_w: m_snake.set_direction( { -1, 0 } ); break;
-            case SDLK_s: m_snake.set_direction( { 1, 0 } );  break;
-            case SDLK_a: m_snake.set_direction( { 0, -1 } ); break;
-            case SDLK_d: m_snake.set_direction( { 0, 1 } );  break;
+            case SDLK_w:
+            case SDLK_UP: m_snake.set_direction( { -1, 0 } ); break;
+            case SDLK_s:
+            case SDLK_DOWN: m_snake.set_direction( { 1, 0 } );  break;
+            case SDLK_a:
+            case SDLK_LEFT: m_snake.set_direction( { 0, -1 } ); break;
+            case SDLK_d:
+            case SDLK_RIGHT: m_snake.set_direction( { 0, 1 } );  break;
         }
     }
     if ( !m_snake.get_is_alive() ) {
