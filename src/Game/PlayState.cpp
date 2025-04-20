@@ -82,7 +82,7 @@ void PlayState::render( SDL_Renderer* renderer ) {
 // - Логируем сообщение о входе в игровое состояние
 void PlayState::enter() {
     logError( "Entering PlayState", LogLevel::INFO );
-    logError( "Starting size of the snake: 1", LogLevel::INFO );
+    logError( "Starting size of the snake: " + std::to_string( m_snake.get_number_of_segments() ), LogLevel::INFO );
 }
 
 // Выход из игрового состояния PlayState
