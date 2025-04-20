@@ -4,7 +4,7 @@ StartMenu::StartMenu( std::pair< int, int > window_size )
 {
     // Палитра цветов
     SDL_Color white = { 255, 255, 255, 255 };
-    SDL_Color green = { 0, 255, 0, 255 };
+    SDL_Color green = { 0, 240, 0, 255 };
 
     // Размеры элементов
     SDL_Rect rect;
@@ -16,12 +16,9 @@ StartMenu::StartMenu( std::pair< int, int > window_size )
         { 
             ( window_size.first - rect.w ) / 2, 
             ( window_size.second - rect.h ) / 2, 
-            rect.w, 
-            rect.h 
+            rect.w, rect.h 
         }, 
-        green, 
-        white, 
-        "Start" 
+        green, white, "Start" 
     );
 
     // Будет реализация другого элемента когда он разработается
@@ -35,20 +32,19 @@ void StartMenu::handle_input( SDL_Event& e ) {
         logError( "Mouse button was pressed on position x:" + std::to_string( mouse_pos.first ) + " y:" + std::to_string( mouse_pos.second ), LogLevel::INFO );
         m_start_button.check_click_button( mouse_pos );
         return;
-    }
-    if ( e.type == SDL_KEYDOWN ) {
+    } else if ( e.type == SDL_KEYDOWN ) {
         if ( e.key.keysym.sym == SDLK_SPACE ) {
             logError( "Space was pressed", LogLevel::INFO );
             m_start_button.set_click();
             return;
-        }
-        if ( e.key.keysym.sym == SDLK_RETURN ) {
+        } else if ( e.key.keysym.sym == SDLK_RETURN ) {
             logError( "Enter was pressed", LogLevel::INFO );
             m_start_button.set_click();
         }
     }
 }
 
+// Возвращает статус активированности/неактивированности кнопки 
 bool StartMenu::is_active_button() { return m_start_button.get_is_clicked(); }
 
 // Рисуем все элементы стартового меню
