@@ -3,8 +3,8 @@
 StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font )
 {
     // Палитра цветов
-    SDL_Color white = { 255, 255, 255, 255 };
-    SDL_Color green = { 0, 240, 0, 255 };
+    SDL_Color white = { 220, 220, 220, 255 };
+    SDL_Color green = { 50, 160, 50, 255 };
 
     // Размеры элементов
     SDL_Rect rect;

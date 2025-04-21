@@ -9,8 +9,8 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
     this->set_next_state_callback( set_next_state_callback ); // Устанавливаем коллбэк
 
     // Палитра цветов
-    SDL_Color white = { 255, 255, 255, 255 };
-    SDL_Color green = { 0, 240, 0, 255 };
+    SDL_Color white = { 220, 220, 220, 255 };
+    SDL_Color green = { 50, 160, 50, 255 };
     // Размеры кнопки
     SDL_Rect rect = { 0, 0, 200, 50 };
     // Реализация кнопки
