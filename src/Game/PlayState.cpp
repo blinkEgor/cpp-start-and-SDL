@@ -22,6 +22,7 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
         }, 
         green, white, "Restart" 
     );
+    m_restart_button.update_text_texture( window_manager->get_renderer(), window_manager->get_font() );
 }
 
 // Отлов пользовательского взаимодействия

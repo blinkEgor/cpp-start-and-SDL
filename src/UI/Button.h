@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
+#include "../Utils/LogError.h"
 
 class Button {
 private:
@@ -9,6 +11,8 @@ private:
     SDL_Color m_text_color = { 255, 255, 255, 255 }; // Цвет текста: по умолчанию белый
     std::string m_text = "text"; // Текст кнопки: по умолчанию "text"
 
+    SDL_Texture* m_text_texture = nullptr;
+    SDL_Rect m_text_rect = { 0, 0, 0, 0 };
     bool is_clicked = false; // Флаг нажатия: по умолчанию "false"
 
 public:
@@ -18,6 +22,8 @@ public:
         SDL_Color text_color = { 255, 255, 255, 255 },
         std::string text = "text"
     );
+    ~Button();
+    void update_text_texture( SDL_Renderer* renderer, TTF_Font* font );
     void set_click();
     void reset_click();
     bool get_is_clicked() const;

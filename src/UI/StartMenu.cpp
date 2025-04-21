@@ -1,6 +1,6 @@
 #include "StartMenu.h"
 
-StartMenu::StartMenu( std::pair< int, int > window_size )
+StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font )
 {
     // Палитра цветов
     SDL_Color white = { 255, 255, 255, 255 };
@@ -20,6 +20,7 @@ StartMenu::StartMenu( std::pair< int, int > window_size )
         }, 
         green, white, "Start" 
     );
+    m_start_button.update_text_texture( renderer, font );
 
     // Будет реализация другого элемента когда он разработается
     // ...

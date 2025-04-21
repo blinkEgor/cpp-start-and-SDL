@@ -12,7 +12,37 @@ Button::Button(
     m_text( text )
 {}
 
-// Флаг нажатия на кнопку
+Button::~Button() {
+    if ( m_text_texture ) {
+        SDL_DestroyTexture( m_text_texture );
+        m_text_texture = nullptr;
+        logError( "Text texture successfully destroyed", LogLevel::INFO );
+    }
+}
+
+// Метод для установки шрифта и генерации текстуры
+void Button::update_text_texture( SDL_Renderer* renderer, TTF_Font* font ) {
+    if ( m_text_texture ) SDL_DestroyTexture( m_text_texture );
+
+    SDL_Surface* surface = TTF_RenderText_Solid( font, m_text.c_str(), m_text_color );
+    if ( !surface ) {
+        logError( "Surface can't create TTF_RenderText_Solid: " + std::string( TTF_GetError() ), LogLevel::ERROR );
+        return;
+    }
+
+    m_text_texture = SDL_CreateTextureFromSurface( renderer, surface );
+
+    m_text_rect = {
+        m_button_rect.x + ( m_button_rect.w - surface->w ) / 2,
+        m_button_rect.y + ( m_button_rect.h - surface->h ) / 2,
+        surface->w,
+        surface->h
+    };
+
+    SDL_FreeSurface( surface );
+}
+
+// Активирует кнопку в состояние "нажата"
 void Button::set_click() { is_clicked = true; }
 // Возвращает кнопку в состояние "не нажата"
 void Button::reset_click() { is_clicked = false; }
@@ -47,4 +77,8 @@ void Button::draw( SDL_Renderer* renderer ) {
         m_background_color.a     // Альфа (непрозрачность)
     );
     SDL_RenderFillRect( renderer, &m_button_rect );
+
+    if ( m_text_texture ) {
+        SDL_RenderCopy( renderer, m_text_texture, nullptr, &m_text_rect );
+    }
 }
