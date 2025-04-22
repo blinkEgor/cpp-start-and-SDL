@@ -66,14 +66,9 @@ int WindowManager::get_screen_width() const { return m_screen_width; }
 // get window height
 int WindowManager::get_screen_height() const { return m_screen_height; }
 
-// set color for clear window
-void WindowManager::set_color( Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha ) {
-	m_r = red; m_g = green; m_b = blue; m_a = alpha;
-}
-
 // clear window
-void WindowManager::clear_window() {
-	SDL_SetRenderDrawColor( m_renderer, m_r, m_g, m_b, m_a ); // set color
+void WindowManager::clear_window( SDL_Color clear_color ) {
+	SDL_SetRenderDrawColor( m_renderer, clear_color.r, clear_color.g, clear_color.b, clear_color.a ); // set color
 	SDL_RenderClear( m_renderer );
 }
 

@@ -20,7 +20,6 @@ private:
 	std::string m_title;
 	int m_screen_width;
 	int m_screen_height;
-	Uint8 m_r = 0, m_g = 0, m_b = 0, m_a = 255; // Цвет фона (чёрный)
 
 public:
 	// Конструктор
@@ -33,8 +32,7 @@ public:
 	TTF_Font* get_font() const;
 	int get_screen_width() const;
 	int get_screen_height() const;
-	void set_color( Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha = 255 );
-	void clear_window();
+	void clear_window( SDL_Color clear_color = { 0, 0, 0, 255 } );
 	void cleanup();
 
 	// Деструктор

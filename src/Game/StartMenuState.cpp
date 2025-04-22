@@ -34,7 +34,6 @@ void StartMenuState::update() {
 // - Очистка окна чёрным цветом
 // - Рисуем все элементы стартового меню
 void StartMenuState::render( SDL_Renderer* renderer ) {
-    window_manager->clear_window();
     m_start_menu.draw( renderer );
 }
 

@@ -38,6 +38,7 @@ void GameManager::game_loop() {
         get_current_state()->update();
 
         // 3. Rendering
+        window_manager->clear_window( Palette::CLEAR_WINDOW );
         get_current_state()->render( window_manager->get_renderer() );
         SDL_RenderPresent( window_manager->get_renderer() );
 

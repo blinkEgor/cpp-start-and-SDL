@@ -99,7 +99,6 @@ void PlayState::update() {
 // - Отрисовка еды
 // - Отрисовка змейки
 void PlayState::render( SDL_Renderer* renderer ) {
-    window_manager->clear_window();
     m_grid.draw_grid( renderer );
     m_food.draw( renderer, m_grid.get_cell_size(), m_grid.get_grid_border() );
     m_snake.draw( renderer, m_grid.get_cell_size(), m_grid.get_grid_border() );

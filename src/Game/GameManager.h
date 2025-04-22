@@ -7,6 +7,7 @@
 #include "GameState.h"
 #include "StartMenuState.h"
 #include "PlayState.h"
+#include "../Graphics/Colors.h"
 
 class GameManager {
 private:
