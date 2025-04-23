@@ -6,10 +6,10 @@
 
 class Button {
 private:
-    SDL_Rect m_button_rect = { 0, 0, 30, 10 }; // Границы кнопки: по умолчанию прямоугольник 30*10 в левом верхнем углу экрана
-    SDL_Color m_background_color = { 0, 255, 0, 255 }; // Цвет кнопки: по умолчанию зелёный
-    SDL_Color m_text_color = { 255, 255, 255, 255 }; // Цвет текста: по умолчанию белый
-    std::string m_text = "text"; // Текст кнопки: по умолчанию "text"
+    SDL_Rect m_button_rect; // Границы кнопки: по умолчанию прямоугольник 30*10 в левом верхнем углу экрана
+    SDL_Color m_background_color; // Цвет кнопки: по умолчанию зелёный
+    SDL_Color m_text_color; // Цвет текста: по умолчанию белый
+    std::string m_text; // Текст кнопки: по умолчанию "text"
 
     SDL_Texture* m_text_texture = nullptr;
     SDL_Rect m_text_rect = { 0, 0, 0, 0 };
