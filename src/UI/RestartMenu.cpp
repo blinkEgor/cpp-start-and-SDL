@@ -2,10 +2,6 @@
 
 RestartMenu::RestartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font )
 {
-    // Палитра цветов
-    SDL_Color white = { 220, 220, 220, 255 };
-    SDL_Color green = { 50, 160, 50, 255 };
-
     // Размеры элементов
     SDL_Rect rect;
 
@@ -18,7 +14,7 @@ RestartMenu::RestartMenu( std::pair< int, int > window_size, SDL_Renderer* rende
             ( window_size.second - rect.h ) / 2, 
             rect.w, rect.h 
         }, 
-        green, white, "Restart" 
+        Palette::BG_BTN_GREEN, Palette::TEXT_WHITE, "Restart" 
     );
     m_restart_button.update_text_texture( renderer, font );
 }
