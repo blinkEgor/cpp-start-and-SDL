@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "Button.h"
 #include "../Utils/LogError.h"
+#include "../Graphics/Colors.h"
 
 class StartMenu : public Menu {
 private:
