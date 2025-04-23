@@ -1,8 +1,8 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
 #include <SDL2/SDL.h>
+#include "../Graphics/Colors.h"
 
 class Grid {
 private:

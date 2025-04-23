@@ -22,7 +22,12 @@ Grid::Grid() :
 // Отрисовка вертикальных линий
 // Отрисовка горизонтальных линий
 void Grid::draw_grid( SDL_Renderer* renderer ) {
-    SDL_SetRenderDrawColor( renderer, 50, 50, 50, 255 ); 
+    SDL_SetRenderDrawColor( renderer, 
+        Palette::GRID_LINE_GREY.r, 
+        Palette::GRID_LINE_GREY.g, 
+        Palette::GRID_LINE_GREY.b, 
+        Palette::GRID_LINE_GREY.a 
+    ); 
     for ( int x = m_grid_border; x <= m_grid_cols_size + m_cell_size - m_grid_border; x += m_cell_size ) {
         SDL_RenderDrawLine( renderer, x, m_grid_border, x, m_grid_border + m_cell_rows * m_cell_size );
     }
