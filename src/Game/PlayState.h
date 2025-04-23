@@ -5,7 +5,7 @@
 #include "Grid.h"
 #include "../Entities/Snake.h"
 #include "../Entities/Food.h"
-#include "../UI/Button.h"
+#include "../UI/RestartMenu.h"
 #include "../Utils/Utils.h"
 
 class PlayState : public GameState {
@@ -17,7 +17,7 @@ private:
 	Grid m_grid;
 	Snake m_snake;
 	Food m_food;
-    Button m_restart_button;
+    RestartMenu m_restart_menu;
 
 public: 
 	PlayState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback );
