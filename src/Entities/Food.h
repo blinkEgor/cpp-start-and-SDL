@@ -4,8 +4,8 @@
 #include <vector>
 #include <deque>
 #include <algorithm>
-
 #include "../Utils/Utils.h"
+#include "../Graphics/Colors.h"
 
 class Food {
 private:

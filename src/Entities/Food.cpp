@@ -28,7 +28,12 @@ void Food::respawn_food( std::vector< std::vector< std::pair< int, int >>>& grid
 // - Вычисляет координаты на основе размера клетки и границ сетки.
 // - Рисует квадрат, представляющий еду.
 void Food::draw( SDL_Renderer* renderer, int grid_cell_size, int grid_border ) {
-    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 ); // Цвет еды: красный
+    SDL_SetRenderDrawColor( renderer, 
+        Palette::FOOD_RED.r, 
+        Palette::FOOD_RED.g, 
+        Palette::FOOD_RED.b, 
+        Palette::FOOD_RED.a 
+    ); // Цвет еды: красный
     SDL_Rect rect = { 
         m_position.second * grid_cell_size + grid_border, 
         m_position.first * grid_cell_size + grid_border, 
