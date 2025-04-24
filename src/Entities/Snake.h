@@ -5,6 +5,7 @@
 #include "../Utils/Utils.h"
 #include "../Game/Grid.h"
 #include "Food.h"
+#include "../Graphics/Colors.h"
 
 class Snake {
 private:

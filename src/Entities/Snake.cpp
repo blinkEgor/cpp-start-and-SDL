@@ -46,7 +46,12 @@ bool Snake::grow( std::pair< int, int > food_position ) {
 // - Проходит по всем сегментам змейки, рассчитывая их положение в пикселях с учётом отступа сетки.
 // - Рисует каждый сегмент в виде квадрата, соответствующего размеру клетки.
 void Snake::draw( SDL_Renderer* renderer, int grid_cell_size, int grid_border ) {
-    SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255 ); // Цвет змейки: зелёный
+    SDL_SetRenderDrawColor( renderer, 
+        Palette::SNAKE_GREEN.r, 
+        Palette::SNAKE_GREEN.g, 
+        Palette::SNAKE_GREEN.b, 
+        Palette::SNAKE_GREEN.a 
+    ); // Цвет змейки: зелёный
     SDL_Rect rect = { 0, 0, grid_cell_size, grid_cell_size };
 
     for ( auto& segment : m_segments ) {
