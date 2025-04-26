@@ -43,13 +43,9 @@ bool WindowManager::init() {
 		logError( "TTF initialization: successful", LogLevel::INFO );
 	}
 
-	m_font = TTF_OpenFont( "assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf", 24 );
-	if ( !m_font ) {
-		logError( "Error loading font: " + std::string( TTF_GetError() ), LogLevel::ERROR );
+	if ( !set_font() ) {
 		cleanup();
 		return false;
-	} else {
-		logError( "Font loading: successful", LogLevel::INFO );
 	}
 
 	return true;
@@ -59,8 +55,33 @@ bool WindowManager::init() {
 SDL_Window* WindowManager::get_window() const { return m_window; }
 // get renderer
 SDL_Renderer* WindowManager::get_renderer() const { return m_renderer; }
+
+// Create a font map and init font with checking errors
+bool WindowManager::set_font() {
+	const char* path_to_font = "assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf";
+	for ( int size = 8, max_size = 64; size <= max_size; size*=2 ) {
+		m_font_map[ size ] = TTF_OpenFont( path_to_font, size );
+
+		if ( !m_font_map[ size ] ) {
+			logError( "Error loading font " + std::to_string( size ) + " : " + std::string( TTF_GetError() ), LogLevel::ERROR );
+			return false;
+		} else {
+			logError( "Font " + std::to_string( size ) + " loading: successful", LogLevel::INFO );
+		}
+	}
+	return true;
+}
+
 // get font 
-TTF_Font* WindowManager::get_font() const { return m_font; }
+TTF_Font* WindowManager::get_font( int size ) const {
+    auto font = m_font_map.find( size );
+    if ( font != m_font_map.end() && font->second != nullptr ) {
+        return font->second;
+    }
+    logError( "Font size " + std::to_string( size ) + " not found or invalid!", LogLevel::ERROR );
+    return nullptr; // выбросить исключение
+}
+
 // get window width
 int WindowManager::get_screen_width() const { return m_screen_width; }
 // get window height
@@ -74,11 +95,18 @@ void WindowManager::clear_window( SDL_Color clear_color ) {
 
 // clean up all for close program
 void WindowManager::cleanup() {
-    if ( m_font != nullptr ) {
-        TTF_CloseFont( m_font );
-        m_font = nullptr;
-        logError( "Font successfully closed", LogLevel::INFO );
+    // Закрыть все шрифты в карте
+    for ( auto& font : m_font_map ) {
+        if ( font.second != nullptr ) {
+            TTF_CloseFont( font.second );
+            font.second = nullptr;
+			logError( "Font " + std::to_string( font.first ) + " cleaned up", LogLevel::INFO );
+        } else {
+			logError( "Font " + std::to_string( font.first ) + " was already nullptr", LogLevel::WARNING );
+		}
     }
+    m_font_map.clear();
+
 
     TTF_Quit();
     logError( "TTF successfully quit", LogLevel::INFO );
