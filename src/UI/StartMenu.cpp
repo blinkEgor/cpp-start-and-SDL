@@ -3,11 +3,9 @@
 StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font )
 {
     // Размеры элементов
-    SDL_Rect rect;
+    SDL_Rect rect = { 0, 0, 256, 48 };
 
     // Реализация одного элемента
-    rect.w = 200;
-    rect.h = 50;
     m_start_button = Button( 
         { 
             ( window_size.first - rect.w ) / 2, 

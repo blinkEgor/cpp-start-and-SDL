@@ -3,11 +3,9 @@
 RestartMenu::RestartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font )
 {
     // Размеры элементов
-    SDL_Rect rect;
+    SDL_Rect rect = { 0, 0, 256, 48 };
 
     // Реализация одного элемента
-    rect.w = 200;
-    rect.h = 50;
     m_restart_button = Button( 
         { 
             ( window_size.first - rect.w ) / 2, 
@@ -19,7 +17,7 @@ RestartMenu::RestartMenu( std::pair< int, int > window_size, SDL_Renderer* rende
     m_restart_button.update_text_texture( renderer, font );
 }
 
-// Обработчик ивентов стартового меню
+// Обработчик ивентов рестартового меню
 void RestartMenu::handle_input( SDL_Event& e ) {
     if ( e.type == SDL_MOUSEBUTTONDOWN ) {
         std::pair< int, int > mouse_pos = { e.button.x, e.button.y };
@@ -41,7 +39,7 @@ void RestartMenu::handle_input( SDL_Event& e ) {
 // Возвращает статус активированности/неактивированности кнопки 
 bool RestartMenu::is_active_button() { return m_restart_button.get_is_clicked(); }
 
-// Рисуем все элементы стартового меню
+// Рисуем все элементы рестартового меню
 // - Устанавливаем цвет кнопки на зелёный
 // - Рисуем саму кнопку в центре экрана
 void RestartMenu::draw( SDL_Renderer* renderer ) {
