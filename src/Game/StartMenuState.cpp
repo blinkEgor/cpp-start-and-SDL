@@ -5,6 +5,7 @@ StartMenuState::StartMenuState( WindowManager* window_manager, GameState::NextSt
     m_start_menu( 
         { window_manager->get_screen_width(), window_manager->get_screen_height() }, 
         window_manager->get_renderer(),
+        window_manager->get_font( 64 ),
         window_manager->get_font( 32 )
     )
 {

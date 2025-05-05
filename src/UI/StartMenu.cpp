@@ -1,23 +1,33 @@
 #include "StartMenu.h"
 
-StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font )
+StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font_logo, TTF_Font* font_button )
 {
     // Размеры элементов
-    SDL_Rect rect = { 0, 0, 256, 48 };
+    SDL_Rect rect;
 
-    // Реализация одного элемента
-    m_start_button = Button( 
+    // Реализация Логотипа
+    rect = { 0, 0, 256, 48 }; // Значения могут быть любыми, они просто указывают положение относительно окна
+    m_logo = Logo(
         { 
+            ( window_size.first - rect.w ) / 2, 
+            ( window_size.second - rect.h - 200 ) / 2, /* 200 - это отступ от центра окна, где находится кнопка, вверх */ 
+            rect.w, rect.h 
+        }, 
+        Palette::TEXT_WHITE, "Snake"
+    );
+    m_logo.update_text_texture( renderer, font_logo );
+
+    // Реализация Кнопки старта
+    rect = { 0, 0, 256, 48 };
+    m_start_button = Button( 
+        { /* Абсолютное центрирование кнопки по центру окна */
             ( window_size.first - rect.w ) / 2, 
             ( window_size.second - rect.h ) / 2, 
             rect.w, rect.h 
         }, 
         Palette::BG_BTN_GREEN, Palette::TEXT_WHITE, "Start" 
     );
-    m_start_button.update_text_texture( renderer, font );
-
-    // Будет реализация другого элемента когда он разработается
-    // ...
+    m_start_button.update_text_texture( renderer, font_button );
 }
 
 // Обработчик ивентов стартового меню
@@ -47,4 +57,5 @@ bool StartMenu::is_active_button() { return m_start_button.get_is_clicked(); }
 // - Рисуем саму кнопку в центре экрана
 void StartMenu::draw( SDL_Renderer* renderer ) {
     m_start_button.draw( renderer );
+    m_logo.draw ( renderer );
 }

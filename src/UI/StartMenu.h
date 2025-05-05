@@ -1,16 +1,18 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include "Menu.h"
+#include "Logo.h"
 #include "Button.h"
 #include "../Utils/LogError.h"
 #include "../Graphics/Colors.h"
 
 class StartMenu : public Menu {
 private:
+    Logo m_logo;
     Button m_start_button;
 
 public:
-    StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font );
+    StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font_logo, TTF_Font* font_button );
 
     void handle_input( SDL_Event& e ) override;
     bool is_active_button() override;
