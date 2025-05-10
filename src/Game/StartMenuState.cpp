@@ -5,8 +5,10 @@ StartMenuState::StartMenuState( WindowManager* window_manager, GameState::NextSt
     m_start_menu( 
         { window_manager->get_screen_width(), window_manager->get_screen_height() }, 
         window_manager->get_renderer(),
-        window_manager->get_font( 64 ),
-        window_manager->get_font( 32 )
+        { 
+            { 32, window_manager->get_font( 32 ) },
+            { 64, window_manager->get_font( 64 ) }
+        }
     )
 {
     this->set_next_state_callback( set_next_state_callback );

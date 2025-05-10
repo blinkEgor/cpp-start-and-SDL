@@ -1,6 +1,6 @@
 #include "RestartMenu.h"
 
-RestartMenu::RestartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font )
+RestartMenu::RestartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, std::map< int, TTF_Font* > font_map )
 {
     // Размеры элементов
     SDL_Rect rect = { 0, 0, 256, 48 };
@@ -14,7 +14,7 @@ RestartMenu::RestartMenu( std::pair< int, int > window_size, SDL_Renderer* rende
         }, 
         Palette::BG_BTN_GREEN, Palette::TEXT_WHITE, "Restart" 
     );
-    m_restart_button.update_text_texture( renderer, font );
+    m_restart_button.update_text_texture( renderer, font_map[ 32 ] );
 }
 
 // Обработчик ивентов рестартового меню

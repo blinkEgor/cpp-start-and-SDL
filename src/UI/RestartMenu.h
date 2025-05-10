@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <map>
 #include "Menu.h"
 #include "Button.h"
 #include "../Utils/LogError.h"
@@ -10,7 +11,7 @@ private:
     Button m_restart_button;
 
 public:
-    RestartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font );
+    RestartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, std::map< int, TTF_Font* > font_map );
 
     void handle_input( SDL_Event& e ) override;
     bool is_active_button() override;

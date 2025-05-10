@@ -8,7 +8,9 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
     m_restart_menu( 
         { window_manager->get_screen_width(), window_manager->get_screen_height() }, 
         window_manager->get_renderer(),
-        window_manager->get_font( 32 )
+        {
+            { 32, window_manager->get_font( 32 ) }
+        }
     )
 {
     this->set_next_state_callback( set_next_state_callback ); // Устанавливаем коллбэк

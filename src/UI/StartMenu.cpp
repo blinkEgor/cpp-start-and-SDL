@@ -1,6 +1,6 @@
 #include "StartMenu.h"
 
-StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, TTF_Font* font_logo, TTF_Font* font_button )
+StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer, std::map< int, TTF_Font* > font_map )
 {
     // Размеры элементов
     SDL_Rect rect;
@@ -15,7 +15,7 @@ StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer,
         }, 
         Palette::TEXT_WHITE, "Snake"
     );
-    m_logo.update_text_texture( renderer, font_logo );
+    m_logo.update_text_texture( renderer, font_map[ 64 ] );
 
     // Реализация Кнопки старта
     rect = { 0, 0, 256, 48 };
@@ -27,7 +27,7 @@ StartMenu::StartMenu( std::pair< int, int > window_size, SDL_Renderer* renderer,
         }, 
         Palette::BG_BTN_GREEN, Palette::TEXT_WHITE, "Start" 
     );
-    m_start_button.update_text_texture( renderer, font_button );
+    m_start_button.update_text_texture( renderer, font_map[ 32 ] );
 }
 
 // Обработчик ивентов стартового меню
