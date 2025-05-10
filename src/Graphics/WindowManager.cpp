@@ -38,6 +38,7 @@ bool WindowManager::init() {
 
 	if ( TTF_Init() == -1 ) {
 		logError( "TTF initialization error: " + std::string( TTF_GetError() ), LogLevel::ERROR );
+		cleanup();
     	return false;
 	} else {
 		logError( "TTF initialization: successful", LogLevel::INFO );

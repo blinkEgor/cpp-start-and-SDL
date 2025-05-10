@@ -12,5 +12,3 @@
 - For method names, use **snake_case**
 
 - For free function names, use **lowerCamelCase**
-
-## Синхронизировал проект на другой операционной ситеме?
