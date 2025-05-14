@@ -4,7 +4,7 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
     window_manager( window_manager ),
     m_grid(),
     m_snake( { 5, 5 } ),
-    m_food( { 8, 8 } ), 
+    m_food( { 5, 15 } ), 
     m_restart_menu( 
         { window_manager->get_screen_width(), window_manager->get_screen_height() }, 
         window_manager->get_renderer(),
@@ -13,6 +13,8 @@ PlayState::PlayState( WindowManager* window_manager, GameState::NextStateCallbac
         }
     )
 {
+    #include <ctime> // Оно вызвано вместе с логами, но пусть наглядно будет тут, компилятор проигнорирует это
+    srand( time( 0 ) ); // Устанавливаем место откуда брать псевдослучайное значение
     this->set_next_state_callback( set_next_state_callback ); // Устанавливаем коллбэк
 }
 

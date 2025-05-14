@@ -5,6 +5,7 @@
 #include <deque>
 #include <algorithm>
 #include "../Utils/Utils.h"
+#include "../Utils/LogError.h"
 #include "../Graphics/Colors.h"
 
 class Food {

@@ -9,8 +9,8 @@ Food::Food( std::pair< int, int > start_position ) {
 // - Генерирует случайную строку и столбец в пределах сетки.
 void Food::respawn_food( std::vector< std::vector< std::pair< int, int >>>& grid_field, std::deque< std::pair< int, int >>& snake_segments ) {
     std::pair< int, int > max_value = { 
-        static_cast< int >( grid_field.size() ), 
-        static_cast< int >( grid_field[ 0 ].size() ) 
+        static_cast< int >( grid_field.size() ) - 1, 
+        static_cast< int >( grid_field[ 0 ].size() ) - 1 
     };
     std::pair< int, int > new_position;
     bool position_valid = false;
@@ -18,6 +18,11 @@ void Food::respawn_food( std::vector< std::vector< std::pair< int, int >>>& grid
     do {
         new_position = get_rund_pair( { 0, 0 }, max_value );
         position_valid = std::find( snake_segments.begin(), snake_segments.end(), new_position ) == snake_segments.end();
+        // Если сетка полностью заполнена змейкой
+        if ( snake_segments.size() == ( grid_field.size() * grid_field[ 0 ].size() ) ) {
+            logError( "Everything is filled with a snake, there is nowhere to spawn food!", LogLevel::WARNING );
+            return;
+        }
     } while ( !position_valid );
 
     m_position = new_position;
