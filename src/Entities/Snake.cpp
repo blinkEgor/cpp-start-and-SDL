@@ -4,6 +4,7 @@ Snake::Snake( std::pair< int, int > start_position ) :
     m_last_move_time( 0 ), 
     m_move_delay( 200 ), 
     m_direction( { 0, 0 } ),
+    m_next_direction( { 0, 0 } ),
     is_eating( false ),
     is_alive( true )
 {
@@ -27,6 +28,8 @@ void Snake::move( std::vector< std::vector< std::pair< int, int >>>& grid_field 
     m_segments.push_front( new_position );
     if ( !is_eating ) m_segments.pop_back();
     is_eating = false;
+
+    m_next_direction = { 0, 0 };
 }
 
 // Проверяет, находится ли голова змейки на позиции еды ( съела ли змейка еду ).
@@ -67,7 +70,12 @@ void Snake::draw( SDL_Renderer* renderer, int grid_cell_size, int grid_border ) 
 // - Обновляет значения dx и dy, задавая новое направление.
 void Snake::set_direction( std::pair< int, int > new_direction ) {
     if ( is_opposite_pair( new_direction, m_direction ) ) return; // Запрет разворота на 180 градусов
-    m_direction = new_direction;
+    if ( !is_equal_pair( m_next_direction, { 0, 0 } ) ) return;
+    m_next_direction = new_direction;
+
+    if( !is_opposite_pair( m_direction, m_next_direction ) ) {
+        m_direction = m_next_direction;
+    }
 }
 
 // Проверяем столкновение змейки с самой собой

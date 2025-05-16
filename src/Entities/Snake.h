@@ -13,6 +13,7 @@ private:
     Uint32 m_last_move_time; // Время последнего хода змейки
     Uint32 m_move_delay; // Задержка между ходами (мс)
     std::pair< int, int > m_direction; // Текущее направление движения
+    std::pair< int, int > m_next_direction; // Планируемое направление
     bool is_eating; // Флаг, едим или нет?
     bool is_alive; // Флаг, змейка жива?
 
