@@ -3,12 +3,12 @@
 GameManager::GameManager( WindowManager* window_manager ) : 
     window_manager( window_manager )
 { 
-    // Создаем коллбэк для смены состояния (лямбда-функция)
+    // Создаю коллбэк для смены состояния (лямбда-функция)
     auto set_next_state_callback = [ this ]( std::unique_ptr<GameState> new_state ) {
         set_next_state( std::move( new_state ) );
     };
     
-    // Ставим состояние игры по умолчанию
+    // Ставлю состояние игры по умолчанию
     set_next_state( std::make_unique<StartMenuState>( window_manager, set_next_state_callback ) );
     change_state();
 }

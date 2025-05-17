@@ -22,10 +22,8 @@ private:
 	int m_screen_height;
 
 public:
-	// Конструктор
 	WindowManager( const std::string& title = "SDL Window", int width = 640, int height = 480 );
 	
-	// Методы
 	bool init();
 	SDL_Window* get_window() const;
 	SDL_Renderer* get_renderer() const;
