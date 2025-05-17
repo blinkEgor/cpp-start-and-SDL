@@ -11,7 +11,7 @@ std::string getCurrentTime() {
     std::time_t now_time_t = std::chrono::system_clock::to_time_t( now );
     std::tm now_tm = *std::localtime( &now_time_t );
     std::stringstream ss;
-    ss << std::put_time( &now_tm, "%Y-%m-%d %H:%M:%S");
+    ss << std::put_time( &now_tm, "%Y-%m-%d %H:%M:%S" );
     return ss.str();
 }
 
@@ -25,7 +25,7 @@ std::string getCurrentTime() {
 void logError( const std::string& message, LogLevel level ) {
     std::string time_str = getCurrentTime();
     std::string level_str;
-    switch (level) {
+    switch ( level ) {
         case LogLevel::INFO: level_str = "[INFO] "; break;
         case LogLevel::ERROR: level_str = "[ERROR] "; break;
         case LogLevel::WARNING: level_str = "[WARNING] "; break;

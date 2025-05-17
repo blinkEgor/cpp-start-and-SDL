@@ -3,7 +3,7 @@
 #include "Game/GameManager.h"
 
 int main( int /*argc*/, char** /*args[]*/ ) {
-	WindowManager window_manager( "Snake", 32*24+32, 32*16+32 );
+	WindowManager window_manager( "Snake", 800, 544 );
 	
 	if( !window_manager.init() ) {
 		logError( "Failed to initialize WindowManager", LogLevel::ERROR );
