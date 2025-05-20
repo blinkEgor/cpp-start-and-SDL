@@ -1,4 +1,4 @@
-#include "StartMenuState.h"
+#include "StartState.h"
 
 StartMenuState::StartMenuState( WindowManager* window_manager, GameState::NextStateCallback set_next_state_callback ) : 
     window_manager( window_manager ), 

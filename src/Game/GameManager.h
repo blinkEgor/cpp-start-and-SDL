@@ -5,7 +5,7 @@
 
 #include "../Graphics/WindowManager.h"
 #include "GameState.h"
-#include "StartMenuState.h"
+#include "StartState.h"
 #include "PlayState.h"
 #include "../Graphics/Colors.h"
 

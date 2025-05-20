@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameState.h"
-#include "StartMenuState.h"
+#include "StartState.h"
 #include "Grid.h"
 #include "../Entities/Snake.h"
 #include "../Entities/Food.h"
