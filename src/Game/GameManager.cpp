@@ -9,7 +9,7 @@ GameManager::GameManager( WindowManager* window_manager ) :
     };
     
     // Ставлю состояние игры по умолчанию
-    set_next_state( std::make_unique<StartMenuState>( window_manager, set_next_state_callback ) );
+    set_next_state( std::make_unique<StartState>( window_manager, set_next_state_callback ) );
     change_state();
 }
 

@@ -64,11 +64,10 @@ void PlayState::update() {
             logged_death = true;
             // Обновляем значение счта на фактическое
             m_restart_menu.update( window_manager->get_renderer(), window_manager->get_font( 32 ), m_snake.get_number_of_segments() );
-
         }
         if ( m_restart_menu.is_active_button() ) {
             if ( m_set_next_state_callback ) {
-                m_set_next_state_callback( std::make_unique<StartMenuState>( window_manager, m_set_next_state_callback ) );
+                m_set_next_state_callback( std::make_unique<StartState>( window_manager, m_set_next_state_callback ) );
             }
         }
     }
