@@ -19,7 +19,7 @@ OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 OBJ_FILES := $(subst $(SRC_DIR)/, $(OBJ_DIR)/, $(OBJ_FILES))
 
 # Имя исполняемого файла
-TARGET = main
+TARGET = snake
 
 # Подключение сгенерированных зависимостей
 -include $(OBJ_FILES:.o=.d)
