@@ -13,5 +13,6 @@
 
 This game uses:
 - SDL2 (https://www.libsdl.org), licensed under the zlib License.
+- SDL_image (https://github.com/libsdl-org/SDL_image/blob/main/LICENSE.txt), licensed under the zlib License.
 - SDL2_ttf (uses FreeType), licensed under the FreeType License.
 - Font "Press Start 2P" by CodeMan38 (https://fonts.google.com/specimen/Press+Start+2P), licensed under SIL Open Font License.
