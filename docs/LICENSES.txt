@@ -23,7 +23,7 @@
 
 
 === FreeType License (FTL) ===
-    For the full text of the license, see the FTL.TXT file.
+    Applies to SDL2_ttf. For the full text of the license, see the FTL.TXT file.
 
 
 

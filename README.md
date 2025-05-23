@@ -1,8 +1,8 @@
 # Snake Game by blinkEgor
 
-## Инструкция для запуска на Linux:
+## Instructions for running on Linux:
 
-### 1. Установите зависимости (SDL2 + SDL2_ttf):
+### 1. Install dependencies (SDL2 + SDL2_ttf):
 Debian/Ubuntu:
 bash
     sudo apt-get install libsdl2-2.0-0 libsdl2-ttf-2.0-0  
@@ -15,17 +15,17 @@ Arch/Manjaro:
 bash
     sudo pacman -S sdl2 sdl2_ttf  
 
-### 2. Дайте права на запуск исполняемого файла:
+### 2. Grant permissions to run the executable file:
 bash
     chmod +x snake  
 
-### 3. Запустите игру:
+### 3. Launch the game:
 bash
     ./snake  
 
-Важно:
-    Убедитесь, что файлы ассетов (шрифты, изображения) находятся в правильных путях (относительно исполняемого файла).
-    Если возникают ошибки вида Library not found, переустановите зависимости из п.1.
+Important:
+    Make sure that asset files (fonts, images) are in the correct paths (relative to the executable file).
+    If errors like Library not found occur, reinstall the dependencies from step 1.
 
 ### Rule for variable naming style
 
@@ -35,6 +35,12 @@ bash
 - - Use the **m_** prefix ( member ) for private variables
 - For method names, use **snake_case**
 - For free function names, use **lowerCamelCase**
+
+### Licenses
+- [EULA](EULA.txt) (terms of use of the game).  
+- [Third party licenses](LICENSES.txt).  
+- [FreeType License (FTL)](FTL.TXT).  
+- [Font "Press Start 2P" (OFL)](OFL.txt).  
 
 ### Credits
 

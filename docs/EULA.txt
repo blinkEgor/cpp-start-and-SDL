@@ -1,0 +1,23 @@
+[Snake_by_blinkEgor]
+© [2025] [Yahor Barmiau]. All rights reserved.
+
+Terms of Use:
+1. It is prohibited:
+   - Distribute, copy or sell the game without the written permission of the author.
+   - Decompile, disassemble, or modify the executable file.
+
+2. Allowed:
+   - Launch the game on personal devices.
+   - Share the free version.
+
+3. The author is not responsible for:
+    - Any damage caused by using the game.
+    - Conflicts with the user's software or hardware.
+
+4. Third-party components:
+   - SDL2, SDL2_ttf: Used under their own licenses (zlib, FTL). Their terms allow modification and commercial use.
+   - Font "Press Start 2P": Licensed under SIL Open Font License (OFL). It can be redistributed with this game, but not sold separately.
+
+Third-party components are licensed under their own terms.
+This EULA applies only to the game "[Snake_by_blinkEgor]" and its original content.
+The license is valid until explicitly terminated. Violation of the terms leads to automatic revocation of rights.
