@@ -1,10 +1,6 @@
 
-=== Licensing the Simple DirectMedia Layer library ===
-
-    SDL 2.0 and newer are available under the zlib license.
-        AND
-    SDL image are available under the zlib license.
-    Copyright (C) 1997-2025 Sam Lantinga <slouken@libsdl.org>
+=== zlib License ===
+    This license applies to SDL2 and SDL2_image.
 
     This software is provided 'as-is', without any express or implied
     warranty.  In no event will the authors be held liable for any damages
@@ -22,6 +18,8 @@
        misrepresented as being the original software.
     3. This notice may not be removed or altered from any source distribution.
 
+    Copyright (C) SDL2: 1997-2024 Sam Lantinga <slouken@libsdl.org>
+    Copyright (C) SDL_image: 1997-2025 Sam Lantinga <slouken@libsdl.org>
 
 
 === FreeType License (FTL) ===
