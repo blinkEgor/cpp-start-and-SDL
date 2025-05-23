@@ -1,4 +1,31 @@
-# cpp-start-and-SDL
+# Snake Game by blinkEgor
+
+## Инструкция для запуска на Linux:
+
+### 1. Установите зависимости (SDL2 + SDL2_ttf):
+Debian/Ubuntu:
+bash
+    sudo apt-get install libsdl2-2.0-0 libsdl2-ttf-2.0-0  
+
+Fedora:
+bash
+    sudo dnf install SDL2 SDL2_ttf  
+
+Arch/Manjaro:
+bash
+    sudo pacman -S sdl2 sdl2_ttf  
+
+### 2. Дайте права на запуск исполняемого файла:
+bash
+    chmod +x snake  
+
+### 3. Запустите игру:
+bash
+    ./snake  
+
+Важно:
+    Убедитесь, что файлы ассетов (шрифты, изображения) находятся в правильных путях (относительно исполняемого файла).
+    Если возникают ошибки вида Library not found, переустановите зависимости из п.1.
 
 ### Rule for variable naming style
 
