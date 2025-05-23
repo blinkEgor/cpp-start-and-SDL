@@ -37,6 +37,7 @@ Important:
 - For free function names, use **lowerCamelCase**
 
 ### Licenses
+
 - [EULA](EULA.txt) (terms of use of the game).  
 - [Third party licenses](LICENSES.txt).  
 - [FreeType License (FTL)](FTL.TXT).  
