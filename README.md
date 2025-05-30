@@ -27,15 +27,6 @@ Important:
     Make sure that asset files (fonts, images) are in the correct paths (relative to the executable file).
     If errors like Library not found occur, reinstall the dependencies from step 1.
 
-### Rule for variable naming style
-
-- For object names, use **PascalCase**
-- For constant names use **UPPER_SNAKE_CASE**
-- For variable names, use **snake_case**
-- - Use the **m_** prefix ( member ) for private variables
-- For method names, use **snake_case**
-- For free function names, use **lowerCamelCase**
-
 ### Licenses
 
 - [EULA](EULA.txt) (terms of use of the game).  

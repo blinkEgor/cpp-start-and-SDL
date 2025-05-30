@@ -1,3 +1,10 @@
+# Имя игры
+GAME_NAME = snake
+# Псевдоним автора
+AUTHOR = by_blink_egor
+# Версия
+VERSION = v1.0
+
 # -------------------------------
 # Linux-сборка 
 # -------------------------------
@@ -22,8 +29,8 @@ SRC_FILES := $(shell find $(SRC_DIR) -type f -name "*.cpp")
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 OBJ_FILES := $(subst $(SRC_DIR)/, $(OBJ_DIR)/, $(OBJ_FILES))
 
-# Имя исполняемого файла
-TARGET = snake
+# Имя исполняемого файла 
+TARGET = $(GAME_NAME)
 
 # Подключение сгенерированных зависимостей
 -include $(OBJ_FILES:.o=.d)
@@ -44,57 +51,42 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 run: $(TARGET)
 	./$(TARGET)
 
-# Очистка
-clean:
-	rm -f $(TARGET)
-	rm -rf $(OBJ_DIR)
-
-
 # -------------------------------
-# Windows-сборка !!! НЕ РАБОТАЕТ
+# Windows-сборка
 # -------------------------------
 
 # Компилятор для Windows
 WIN_CXX = x86_64-w64-mingw32-g++
 
 # Папка для объектных файлов
-WIN_OBJ_DIR = win-build
+WIN_OBJ_DIR = win-obj
 
 # Имя исполняемого файла под Windows
-WIN_TARGET = snake.exe
+WIN_TARGET = $(GAME_NAME).exe
 
-# SDL2 и TTF (в проекте)
-WIN_SDL_DIR = win-libs/SDL2
-WIN_TTF_DIR = win-libs/SDL2_ttf
+# Библиотеки
+WIN_LIBS := $(shell x86_64-w64-mingw32-pkg-config sdl2 SDL2_ttf --cflags --libs)
 
 # Флаги компиляции (Windows)
-WIN_CXXFLAGS = -std=c++17 -Wall -Wextra -I$(WIN_SDL_DIR)/include -I$(WIN_TTF_DIR)/include -Dmain=SDL_main
-
-# Флаги линковки (Windows)
-WIN_LIBS = \
-	-L$(WIN_SDL_DIR)/lib -lSDL2 \
-	-L$(WIN_TTF_DIR)/lib -lSDL2_ttf \
-	-mwindows
+WIN_CXXFLAGS = -std=c++17 -Wall -Wextra -MMD
 
 # Генерация объектников для Windows
 WIN_OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(WIN_OBJ_DIR)/%.o, $(SRC_FILES))
 WIN_OBJ_FILES := $(subst $(SRC_DIR)/, $(WIN_OBJ_DIR)/, $(WIN_OBJ_FILES))
 
+# Подключение сгенерированных зависимостей
+-include $(WIN_OBJ_FILES:.o=.d)
+
 # Сборка под Windows
-# windows: $(WIN_TARGET)
+windows: $(WIN_TARGET) 
 
 $(WIN_TARGET): $(WIN_OBJ_FILES)
-	$(WIN_CXX) $(WIN_CXXFLAGS) -o $(WIN_TARGET) $(WIN_OBJ_FILES) $(WIN_LIBS)
+	$(WIN_CXX) $(WIN_CXXFLAGS) -o $@ $^ $(WIN_LIBS)
 
 # Компиляция для Windows
 $(WIN_OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(WIN_CXX) $(WIN_CXXFLAGS) -c $< -o $@
-
-# Очистка Windows-сборки
-# clean-windows:
-# 	rm -f $(WIN_TARGET)
-# 	rm -rf $(WIN_OBJ_DIR)
 
 # -------------------------------
 # Архивация
@@ -103,21 +95,44 @@ $(WIN_OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 # Папка для финальных архивов
 DIST_DIR = dist
 
-# Общие файлы в архив
+# Общие файлы
+DLL = libgcc_s_seh-1.dll libstdc++-6.dll SDL2.dll SDL2_ttf.dll
 COMMON_FILES = assets docs README.md
 
+# Имена главной папки и архива
+ZIP_NAME_LIN = $(GAME_NAME)-$(AUTHOR)-$(VERSION)-linux.zip
+ZIP_NAME_WIN = $(GAME_NAME)-$(AUTHOR)-$(VERSION)-windows.zip
+
 # Создание архива для Linux
-zip-linux: $(TARGET)
-	@mkdir -p $(DIST_DIR)/snake
-	cp $(TARGET) $(DIST_DIR)/snake/
-	cp -r $(COMMON_FILES) $(DIST_DIR)/snake/
-	cd $(DIST_DIR) && zip -r snake_by_blinkegor-linux-v1.0.zip snake
-	rm -rf $(DIST_DIR)/snake
+zip-lin: $(TARGET)
+	@mkdir -p $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux
+	cp $(TARGET) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux/
+	cp -r $(COMMON_FILES) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux/
+	cd $(DIST_DIR) && zip -r $(ZIP_NAME_LIN) $(GAME_NAME)-$(VERSION)-linux
+	rm -rf $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux
 
 # Создание архива для Windows
-# zip-windows: $(WIN_TARGET)
-# 	@mkdir -p $(DIST_DIR)/snake
-# 	cp $(WIN_TARGET) $(DIST_DIR)/snake/
-# 	cp -r $(COMMON_FILES) win-libs $(DIST_DIR)/snake/
-# 	cd $(DIST_DIR) && zip -r snake_by_blinkegor-windows-v1.0.zip snake
-# 	rm -rf $(DIST_DIR)/snake
+zip-win: $(WIN_TARGET)
+	@mkdir -p $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows
+	cp $(WIN_TARGET) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows/
+	cp -r $(COMMON_FILES) $(DLL) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows/
+	cd $(DIST_DIR) && zip -r $(ZIP_NAME_WIN) $(GAME_NAME)-$(VERSION)-windows
+	rm -rf $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows
+
+# Очистка
+clean:
+	rm -f $(TARGET)
+	rm -rf $(OBJ_DIR)
+	rm -f $(WIN_TARGET)
+	rm -rf $(WIN_OBJ_DIR)
+
+clean-linux:
+	rm -f $(TARGET)
+	rm -rf $(OBJ_DIR)
+
+clean-windows:
+	rm -f $(WIN_TARGET)
+	rm -rf $(WIN_OBJ_DIR)
+
+clean-dist:
+	rm -rf $(DIST_DIR)
