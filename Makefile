@@ -1,9 +1,17 @@
 # Имя игры
 GAME_NAME = snake
-# Псевдоним автора
-AUTHOR = by_blink_egor
 # Версия
 VERSION = v1.0
+# Стадия
+STAGE.1 = proto
+STAGE.2 = alpha
+STAGE.3 = beta
+STAGE.4 = release
+STAGE = $(STAGE.1)
+
+# Операционная система
+IOS.1 = linux
+ISO.2 = win
 
 # -------------------------------
 # Linux-сборка 
@@ -100,24 +108,24 @@ DLL = libgcc_s_seh-1.dll libstdc++-6.dll SDL2.dll SDL2_ttf.dll
 COMMON_FILES = assets docs README.md
 
 # Имена главной папки и архива
-ZIP_NAME_LIN = $(GAME_NAME)-$(AUTHOR)-$(VERSION)-linux.zip
-ZIP_NAME_WIN = $(GAME_NAME)-$(AUTHOR)-$(VERSION)-windows.zip
+ZIP_NAME_LIN = $(GAME_NAME)_$(STAGE)_$(VERSION)_$(IOS.1).zip
+ZIP_NAME_WIN = $(GAME_NAME)_$(STAGE)_$(VERSION)_$(ISO.2).zip
 
 # Создание архива для Linux
 zip-lin: $(TARGET)
-	@mkdir -p $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux
-	cp $(TARGET) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux/
-	cp -r $(COMMON_FILES) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux/
-	cd $(DIST_DIR) && zip -r $(ZIP_NAME_LIN) $(GAME_NAME)-$(VERSION)-linux
-	rm -rf $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-linux
+	@mkdir -p $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.1)
+	cp $(TARGET) $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.1)/
+	cp -r $(COMMON_FILES) $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.1)/
+	cd $(DIST_DIR) && zip -r $(ZIP_NAME_LIN) $(GAME_NAME)_$(VERSION)_$(IOS.1)
+	rm -rf $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.1)
 
 # Создание архива для Windows
 zip-win: $(WIN_TARGET)
-	@mkdir -p $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows
-	cp $(WIN_TARGET) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows/
-	cp -r $(COMMON_FILES) $(DLL) $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows/
-	cd $(DIST_DIR) && zip -r $(ZIP_NAME_WIN) $(GAME_NAME)-$(VERSION)-windows
-	rm -rf $(DIST_DIR)/$(GAME_NAME)-$(VERSION)-windows
+	@mkdir -p $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.2)
+	cp $(WIN_TARGET) $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.2)/
+	cp -r $(COMMON_FILES) $(DLL) $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.2)/
+	cd $(DIST_DIR) && zip -r $(ZIP_NAME_WIN) $(GAME_NAME)_$(VERSION)_$(IOS.2)
+	rm -rf $(DIST_DIR)/$(GAME_NAME)_$(VERSION)_$(IOS.2)
 
 # Очистка
 clean:

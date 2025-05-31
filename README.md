@@ -1,7 +1,6 @@
 # Snake Game by blinkEgor
 
 ## Instructions for running on Linux:
-
 ### 1. Install dependencies (SDL2 + SDL2_ttf):
 Debian/Ubuntu:
 bash
@@ -24,18 +23,16 @@ bash
     ./snake  
 
 Important:
-    Make sure that asset files (fonts, images) are in the correct paths (relative to the executable file).
+    Make sure that asset files (fonts) are in the correct paths (relative to the executable file).
     If errors like Library not found occur, reinstall the dependencies from step 1.
 
-### Licenses
-
+## Licenses
 - [EULA](EULA.txt) (terms of use of the game).  
 - [Third party licenses](LICENSES.txt).  
 - [FreeType License (FTL)](FTL.TXT).  
 - [Font "Press Start 2P" (OFL)](OFL.txt).  
 
-### Credits
-
+## Credits
 This game uses:
 - SDL2 (https://www.libsdl.org), licensed under the zlib License.
 - SDL_image (https://github.com/libsdl-org/SDL_image/blob/main/LICENSE.txt), licensed under the zlib License.

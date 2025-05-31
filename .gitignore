@@ -40,4 +40,7 @@ Thumbs.db
 /assets/fonts/Open_Sans
 
 # Игнорировать библиотеки которые нужны только для Windows сборки
-/win-libs
+libgcc_s_seh-1.dll
+libstdc++-6.dll
+SDL2.dll
+SDL2_ttf.dll
